@@ -214,6 +214,10 @@ Error message and password prompt
 
 <li>$:/state/toc/TableOfContents-Active Brownian particles--81657105</li>
 
+<li>$:/state/toc/TableOfContents-Active Ornstein-Uhlenbeck particles--81657105</li>
+
+<li>$:/state/toc/TableOfContents-Active Ornstein-Uhlenbeck particles-1351528465</li>
+
 <li>$:/state/toc/TableOfContents-Analysis--81657105</li>
 
 <li>$:/state/toc/TableOfContents-Analysis-1351528465</li>
@@ -239,6 +243,8 @@ Error message and password prompt
 <li>$:/state/toc/TableOfContents/Active Brownian particles-One ABP--81657105</li>
 
 <li>$:/state/toc/TableOfContents/Active Brownian particles/ABP work and order LDP-ABP cloning algorithm--81657105</li>
+
+<li>$:/state/toc/TableOfContents/Active Ornstein-Uhlenbeck particles-One AOUP--81657105</li>
 
 <li>$:/state/toc/TableOfContents/Measurements-Collective mean square displacements--81657105</li>
 
@@ -468,7 +474,15 @@ Error message and password prompt
 
 <li>$:/themes/tiddlywiki/vanilla/settings/fontfamily</li>
 
+<li>Active Ornstein-Uhlenbeck particles</li>
+
 <li>CustomStylesheet</li>
+
+<li>Draft of 'One AOUP'</li>
+
+<li>Macros</li>
+
+<li>One AOUP</li>
 
 <li>Project</li>
 
@@ -9870,6 +9884,12 @@ config.macros.bibliography = {
 <div created="20191029154446278" modified="20191029154446278" title="$:/state/toc/TableOfContents-Active Brownian particles--81657105">
 <pre>open</pre>
 </div>
+<div created="20200827092235216" modified="20200827092237083" title="$:/state/toc/TableOfContents-Active Ornstein-Uhlenbeck particles--81657105">
+<pre>open</pre>
+</div>
+<div created="20200826123551871" modified="20200826123551871" title="$:/state/toc/TableOfContents-Active Ornstein-Uhlenbeck particles-1351528465">
+<pre>open</pre>
+</div>
 <div created="20180417231441389" modified="20190812145455410" title="$:/state/toc/TableOfContents-Analysis--81657105">
 <pre>open</pre>
 </div>
@@ -9909,6 +9929,9 @@ config.macros.bibliography = {
 <div created="20200116183033480" modified="20200116183033480" title="$:/state/toc/TableOfContents/Active Brownian particles/ABP work and order LDP-ABP cloning algorithm--81657105">
 <pre>open</pre>
 </div>
+<div created="20200907100306102" modified="20200907100306102" title="$:/state/toc/TableOfContents/Active Ornstein-Uhlenbeck particles-One AOUP--81657105">
+<pre>open</pre>
+</div>
 <div created="20180609023859864" modified="20190810090138763" title="$:/state/toc/TableOfContents/Measurements-Collective mean square displacements--81657105">
 <pre>close</pre>
 </div>
@@ -9939,7 +9962,7 @@ config.macros.bibliography = {
 <div created="20180606020526389" modified="20180606020526389" title="$:/state/toc/TableOfContents/Measurements/Strain and vorticity fields-Strain correlations--81657105">
 <pre>open</pre>
 </div>
-<div list="Project" title="$:/StoryList">
+<div list="[[Active Ornstein-Uhlenbeck particles]] [[One AOUP]] Project" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20190725184303281" modified="20190727111023175" title="$:/temp/advancedsearch">
@@ -10649,7 +10672,7 @@ This plugin also requires the JSZip plugin ([[$:/plugins/tiddlywiki/jszip]]) to 
 <div created="20180620032354454" modified="20180620032356781" title="$:/temp/RemoteAssetSearch/$:/config/OfficialPluginLibrary">
 <pre>bibtex</pre>
 </div>
-<div created="20180416033117939" modified="20200825151649080" title="$:/temp/search">
+<div created="20180416033117939" modified="20200907100738397" title="$:/temp/search">
 <pre></pre>
 </div>
 <div created="20180620031722320" modified="20180620031722320" tags="$:/tags/ServerConnection" title="$:/temp/ServerConnection/https://tiddlywiki.com/library/v5.1.15/index.html" url="https://tiddlywiki.com/library/v5.1.15/index.html">
@@ -10785,6 +10808,125 @@ This plugin also requires the JSZip plugin ([[$:/plugins/tiddlywiki/jszip]]) to 
 <div created="20190727110537306" modified="20190727110548195" title="$:/themes/tiddlywiki/vanilla/settings/fontfamily">
 <pre>&quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Lucida Grande&quot;, &quot;DejaVu Sans&quot;, sans-serif</pre>
 </div>
+<div created="20200825155432570" modified="20200907120040631" tags="TableOfContents" title="Active Ornstein-Uhlenbeck particles">
+<pre>We define active Ornstein-Uhlenbeck particles ([[Bonilla, 2019|https://doi.org/10.1103/PhysRevE.100.022601]], [[Fodor et al., 2016|https://doi.org/10.1103/PhysRevLett.117.038103]]).
+
+We refer to ([[yketa/DAMTP_MSC_2019_Wiki#Active Brownian particles|https://yketa.github.io/DAMTP_MSC_2019_Wiki/#Active%20Brownian%20particles]]) for definitions of the polarisation order parameter and the active work.
+
+! Model
+
+!! Theoretical description
+
+!!! Equations of motion
+
+With $$\underline{r}_i$$ and $$\underline{p}_i$$ the position and self-propulsion vector of particle $$i$$ ($$i \in \{1,\ldots,N\}$$), we have the equations of motion of AOUPs
+$$
+\begin{aligned}
+\dot{\underline{r}}_i &amp;= - \mu \sum_{j \neq i} \nabla_i V(|\underline{r}_i - \underline{r}_j|) + \underline{p}_i,\\
+\dot{\underline{p}}_i &amp;= - D_r \underline{p}_i + \sqrt{2 \, D_r^2 \, D} \, \underline{\eta}_i,
+\end{aligned}
+$$
+where $$\underline{\eta}_i$$ is a zero-mean unit-variance Gaussian white noise, //i.e.// $$\left&lt;\eta_i^{\alpha}(t) \, \eta_j^{\beta}(t^{\prime})\right&gt; = \delta_{\alpha\beta} \delta_{ij} \delta(t - t^{\prime})$$, $$\mu$$ is the mobility, $$D_r$$ is the rotational diffusivity, and $$D$$ is the translational diffusivity. We note that the name of the model stems from the self-propulsion vector performing an Ornstein-Uhlenbeck process ([[Gardiner, 2009|https://www.springer.com/gp/book/9783540707127]], § 3.8.4, § 4.4.4), therefore
+$$
+\underline{p}_i(t) = \underline{p}_i(0) e^{-D_r t} + \int_0^t \mathrm{d}s \, \sqrt{2 D_r^2 D} \, \underline{\eta}_i(t) \, e^{-D_r (t - s)}
+$$
+$$
+\begin{aligned}
+\left&lt;\underline{p}_i(t) \cdot \underline{p}_j(t^{\prime})\right&gt; &amp;= \delta_{ij} \left[\left(\left&lt;|\underline{p}_i(0)|^2\right&gt; - d \, D \, D_r\right) e^{-D_r (t + t^{\prime})} + d \, D \, D_r \, \exp(-D_r |t - t^{\prime}|) \right]\\
+&amp;\sim \delta_{ij} d \, D \, D_r \, \exp(-D_r |t - t^{\prime}|),~ t, t^{\prime} \to \infty\\
+&amp;= \left&lt;\left(\underline{p}_i(t) - \underline{p}_i(0) e^{-D_r t}\right) \cdot \left(\underline{p}_j(t^{\prime}) -
+ \underline{p}_j(0) e^{-D_r t^{\prime}}\right)\right&gt;,
+\end{aligned}
+$$
+$$
+P_s(\underline{p}) = (2 \pi D D_r)^{-d/2} \exp\left(- \frac{1}{2 D_r D} |\underline{p}|^2\right),
+$$
+where $$d = 2$$ is the dimension, and $$P_s$$ denotes the steady-state distribution. We also introduce $$\tau = D_r^{-1}$$ the persistence time. We then have
+$$
+\left&lt;|\underline{p}|\right&gt; = \int_0^{\infty} (2 \pi r \, \mathrm{d}r) \,  r \, P_s(r) = \int_0^{\infty} (2 \pi r \, \mathrm{d}r) \,  r \, \frac{1}{2 \pi D D_r} \exp\left(- \frac{1}{2 D_r D} r^2\right) = \sqrt{\frac{\pi D D_r}{2}}
+$$
+in steady state.
+
+!!! Interaction potential
+
+With
+$$
+\sigma_{ij} = \frac{\sigma_i + \sigma_j}{2},
+$$
+the mean diameter of particles $$i$$ and $$j$$, we define the interparticle force deriving from the WCA potential between these particles separated by distance $$r$$,
+$$
+\begin{aligned}
+V_{WCA}(r, \epsilon) &amp;= \epsilon\left[4 \left(\frac{1}{(r/\sigma_{ij})^{12}} - \frac{1}{(r/\sigma_{ij})^6}\right) + 1\right] \Theta(2^{1/6} - r/\sigma_{ij}),
+\end{aligned}
+$$
+where $$\Theta$$ stands for the Heaviside function, and $$\sigma$$ is the diameter of particles. We thus have a force of the form
+$$
+\underline{F}_{WCA}(r = \sqrt{\Delta x^2 + \Delta y^2}, \epsilon) = - \frac{\epsilon}{\sigma_{ij}^2}\left(\frac{48}{(r/\sigma_{ij})^{14}} - \frac{24}{(r/\sigma_{ij})^{8}}\right) \begin{pmatrix} \Delta x \\ \Delta y \end{pmatrix} \Theta(2^{1/6} - r/\sigma_{ij}).
+$$
+
+We note that $$\mu$$ only appears in the product $$\mu \epsilon$$ in our equations of motion, it is then equivalent to set either one while keeping the other equal to 1.
+
+!!! Polydispersity
+
+In the case where the system is polydisperse, we will denote $$0 \leq I &lt; 1$$ its polydensity index, such that the diamters of particles are uniformly distributed in $$[1-I; 1+I]$$. We note that, defined this way, the mean diameter of particles is $$\sigma = 1$$.
+
+!! Numerical integration
+
+&lt;&lt;compuscript path:&quot;iteration.cpp&quot;&gt;&gt;
+
+!!! Initialisation
+
+Simulations with custom parameter relations start with a uniform grid of particles.
+
+Simulations of general polydisperse ABPs also start with a uniform grid of particles, we then use the [[FIRE algorithm|https://yketa.github.io/DAMTP_MSC_2019_Wiki/#FIRE%20algorithm]] to minismise the overlaps of particles.
+
+&lt;&lt;compuscript path:&quot;fire.hpp&quot;&gt;&gt;
+
+!!! Forces and torque
+
+In order to simplify further equations, we introduce a notation which stresses the dependence of the forces applied on particle $$i$$ at time $$t$$ on the positions and self-propulsion vectors of other particles. We will denote
+$$
+\begin{aligned}
+\dot{\underline{r}}_i(t) &amp;= \underline{\mathscr{R}}_i[\{\underline{r}_{j, t}, \underline{p}_{j, t}\}],\\ \dot{\underline{p}}_i(t) &amp;= \underline{\mathscr{P}}_i[\{\underline{r}_{j, t}, \underline{p}_{j, t}\}] + \sqrt{2 \, D_r^2 \, D} \, \underline{\eta}_i(t),
+\end{aligned}
+$$
+where $$\underline{\mathscr{R}}_i$$ and $$\underline{\mathscr{P}}_i$$ are exempt of noise terms.
+
+!!! Euler's scheme
+
+We use a simple Euler's scheme with time step $$\Delta t$$ to integrate the aforementioned equations,
+$$
+\begin{aligned}
+\underline{r}_{i, t + 1} &amp;= \underline{r}_{i, t} + \Delta t \, \underline{\mathscr{R}}_i[\{\underline{r}_{j, t}, \underline{p}_{j, t}\}] ,\\
+\underline{p}_{i, t + 1} &amp;= \underline{p}_{i, t} + \Delta t \, \underline{\mathscr{P}}_i[\{\underline{r}_{j, t}, \underline{p}_{j, t}\}] + \sqrt{2 \, D_r^2 \, D \, \Delta t} \, \begin{pmatrix} \eta_{i, x, t + 1} \\ \eta_{i, y, t + 1} \end{pmatrix},\\
+\end{aligned}
+$$
+where the $$\eta_{i, x, t}$$, $$\eta_{i, y, t}$$ are independent random numbers taken from a Gaussian distribution with zero mean and unit variance.
+
+!!! Heun's scheme
+
+We stress that when particles are crowded or when they move fast towards each other, this Euler scheme may not be adapted since the WCA potential is very steep. Others integration scheme such as Heun's scheme ([[Mannella, 2002|https://www.worldscientific.com/doi/abs/10.1142/S0129183102004042]], [[Rüemelin, 1982|https://epubs.siam.org/doi/abs/10.1137/0719041]], [[Burrage et al., 2004|https://royalsocietypublishing.org/doi/abs/10.1098/rspa.2003.1247]]) may improve accuracy.
+
+We first integrate the equations of motion following Euler's scheme,
+$$
+\begin{aligned}
+\underline{r}^*_{i, t} &amp;= \underline{r}_{i, t} + \Delta t \, \underline{\mathscr{R}}_i[\{\underline{r}_{j, t}, \underline{p}_{j, t}\}] ,\\
+\underline{p}^*_{i, t} &amp;= \underline{p}_{i, t} + \Delta t \, \underline{\mathscr{P}}_i[\{\underline{r}_{j, t}, \underline{p}_{j, t}\}] + \sqrt{2 \, D_r^2 \, D \, \Delta t} \, \begin{pmatrix} \eta_{i, x, t + 1} \\ \eta_{i, y, t + 1} \end{pmatrix},\\
+\end{aligned}
+$$
+then re-compute the forces and torques and correct the integration step,
+$$
+\begin{aligned}
+\underline{r}_{i, t + 1} &amp;= \underline{r}_{i, t} + \frac{\Delta t}{2} \left(\underline{\mathcal{R}}_i[\{\underline{r}_{j, t}, \underline{p}_{j, t}\}]  + \underline{\mathcal{R}}_i[\{\underline{r}^*_{j, t}, \underline{p}^*_{j, t}\}] \right),\\
+\underline{p}_{i, t + 1} &amp;= \underline{p}_{i, t} + \frac{\Delta t}{2} \left(\underline{\mathscr{P}}_i[\{\underline{r}_{j, t}, \underline{p}_{j, t}\}]  + \underline{\mathscr{P}}_i[\{\underline{r}^*_{j, t}, \underline{p}^*_{j, t}\}] \right) + \sqrt{2 \, D_r^2 \, D \, \Delta t} \, \begin{pmatrix} \eta_{i, x, t + 1} \\ \eta_{i, y, t + 1} \end{pmatrix},
+\end{aligned}
+$$
+where we stress that the $$\eta_{i, x, t}$$, $$\eta_{i, y, t}$$ are only computed once.
+
+!!! Gaussian noise
+
+In order to avoid large displacements between two consecutive frame, we redraw these random numbers if they exceed a certain threshold.</pre>
+</div>
 <div created="20190812151828852" modified="20200102165742809" tags="$:/tags/Stylesheet" title="CustomStylesheet">
 <pre>/* TABLES */
 /* header background */
@@ -10797,9 +10939,150 @@ div.tc-tiddler-frame table.custom-table { border: 2px solid #808080 !important; 
 /* invert colors */
 /*img { filter: invert(100%); }*/</pre>
 </div>
-<div created="20200825151809436" modified="20200825153244807" tags="TableOfContents" title="Project">
+<div modified="20200907134554965" title="Draft of 'One AOUP'">
+<pre></pre>
+</div>
+<div created="20200825171227670" modified="20200907100735887" tags="$:/tags/Macro" title="Macros">
+<pre>\define plot(image:&quot;&quot;)
+
+&lt;div style=&quot;font-size:0.6em;text-align:center; margin:0 auto;&quot;&gt;
+    &lt;a href=&quot;Figures/$image$.svg&quot;&gt;[img [Figures/$image$.svg]]&lt;/a&gt;&lt;br&gt;
+    &lt;a
+        href=&quot;Figures/eps/$image$.eps&quot;
+        class=&quot;tc-btn-big-green&quot;
+        style=&quot;background-color:#10b10b&quot;
+        target=&quot;_blank&quot;
+        rel=&quot;noopener noreferrer&quot;
+    &gt;
+            {{$:/core/images/picture}}
+            &lt;b&gt;~PostScript image&lt;/b&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+
+\end
+
+\define compuscript(path:&quot;&quot;)
+
+&lt;div style=&quot;font-size:0.7em&quot; align=&quot;right&quot;&gt;
+    &lt;a
+        href=&quot;https://github.com/yketa/coll_dyn_activem/blob/master/$path$&quot;
+        class=&quot;tc-btn-big-green&quot;
+        style=&quot;background-color:#0b63b1&quot;
+        target=&quot;_blank&quot;
+        rel=&quot;noopener noreferrer&quot;
+    &gt;
+            {{$:/core/images/github}} &lt;b&gt;Script&lt;/b&gt; on ~GitHub
+    &lt;/a&gt;
+&lt;/div&gt;
+
+\end
+
+\define toc(label:&quot;&quot;)
+
+&lt;div class=&quot;tc-table-of-contents&quot;&gt;
+&lt;&lt;toc-selective-expandable &quot;$label$&quot;&gt;&gt;
+&lt;/div&gt;
+
+\end
+
+We define here macros usable for all tiddlers.
+
+---
+
+__''plot''__
+
+For figures saved as SVG images `Figures/[image].svg` and ~PostScript images `Figures/eps/[image].eps`, we define the macro ''plot'' with parameters ''image'' which displays the image with a link to the //.eps// file.
+
+''EXAMPLE''
+
+&lt;&lt;plot image:&quot;msd1P_AOUP&quot;&gt;&gt;
+
+---
+
+__''compuscript''__
+
+For scripts in the project ~GitHub [[yketa/coll_dyn_activem|https://github.com/yketa/coll_dyn_activem]], available at `yketa/coll_dyn_activem/[path]`, we define the macro ''compuscript'' with parameter ''path'' which displays a banner with a link to the script on ~GitHub.
+
+''EXAMPLE''
+
+&lt;&lt;compuscript path:&quot;particle.hpp&quot;&gt;&gt;
+
+---
+
+__''toc''__
+
+Use macro ''toc'' with parameter ''label'' to display a table of contents of tiddlers with this label.
+
+''EXAMPLE''
+
+&lt;&lt;toc label:&quot;TableOfContents&quot;&gt;&gt;</pre>
+</div>
+<div created="20200825173759735" modified="20200907134554644" tags="[[Active Ornstein-Uhlenbeck particles]]" title="One AOUP">
+<pre>! Free AOUP
+
+We focus on $$N=1$$ systems, without external potential, such that the force term disappears in the equations of motion.
+
+These preliminary results enable us to check that the simulation behaves the expected way and to set a basis on which to compare the results of multi-particle simulations.
+
+!! Mean squared displacement
+
+We define the mean squared displacement
+$$
+\left&lt;|\Delta\underline{r}(\Delta t)|^2\right&gt; = \left&lt;|\underline{r}(t_0 + \Delta t) - \underline{r}(t_0)|^2\right&gt;_{t_0}.
+$$
+
+&lt;&lt;compuscript path:&quot;flow.py&quot;&gt;&gt;
+
+With the notations we have introduced, we then have
+$$
+\begin{aligned}
+\left&lt;|\Delta\underline{r}(\Delta t)|^2\right&gt; =&amp; \left&lt;\left(\int_{t_0}^{t_0 + \Delta t} \mathrm{d}\underline{r}(t)\right)^2\right&gt; = \left&lt;\left(\int_{t_0}^{t_0 + \Delta t} \mathrm{d}t \, \underline{p}(t)\right)^2\right&gt;\\
+=&amp; \int_{t_0}^{t_0 + \Delta t} \int_{t_0}^{t_0 + \Delta t} \text{d}t \, \text{d}t^{\prime} \, \left&lt;\underline{p}(t) \cdot \underline{p}(t^{\prime})\right&gt;\\
+=&amp; \int_{t_0}^{t_0 + \Delta t} \int_{t_0}^{t_0 + \Delta t} \text{d}t \, \text{d}t^{\prime} \, d D D_r \exp\left(-D_r |t - t^{\prime}|\right)\\
+=&amp; 2 d D\left(\Delta t + D_r^{-1} \left(\exp\left(-D_r\Delta t\right) - 1\right)\right),
+\end{aligned}
+$$
+where $$d = 2$$ is the dimension.
+
+We plot for a single particle and $$D \in \{10^{-2}, 10^0\}$$, $$D_r \in \{10^0, 10^1, 10^2\}$$ the numerical mean squared displacement compared to the theoretial predicition.
+
+&lt;&lt;plot &quot;msd1P_AOUP&quot;&gt;&gt;
+
+!! Active temperature
+
+At long times we have,
+$$
+t \rightarrow \infty,~ \left&lt;|\Delta\underline{r}(\Delta t)|^2\right&gt; \sim 2 d D \Delta t,
+$$
+such that $$D$$ can be interpreted as a translational diffusivity. With the Einstein–Smoluchowski relation
+$$
+D = \mu \, k_B \, T_a,
+$$
+we define
+$$
+T_a = \frac{1}{\mu \, k_B} D,
+$$
+the active temperature.
+
+! Self-propulsion vector dynamics
+
+We stress that the self-propulsion vectors' different dynamics are independent.
+
+!! Self-propulsion vector autocorrelation function
+
+We compare the numerical autocorrelation function of these vectors to the theoretical prediction for $$D=1$$, $$D_r = 10$$, using $$N=20$$ particles.
+
+&lt;&lt;plot &quot;pCor_AOUP'&gt;&gt;
+
+!! Self-propulsion vector distribution
+
+We compare the numerical probability distrbution function of the self-propulsion vectors projected on the $$x$$-axis, obtained through fast kernel density estimation (fastKDE, see [[O'Brien et al., 2016|https://www.sciencedirect.com/science/article/pii/S0167947316300408]]), for $$D \in \{10^0, 10^1, 10^2\}$$, $$D_r \in \{10^0, 10^1, 10^2\}$$, using $$N=20$$ particles.
+
+&lt;&lt;plot &quot;pDist_AOUP'&gt;&gt;</pre>
+</div>
+<div created="20200825151809436" modified="20200906143133992" tags="TableOfContents" title="Project">
 <pre>''Author'': Yann-Edwin Keta, //Laboratoire Charles Coulomb// (UMR 5221 CNRS), //Université de Montpellier//&lt;br&gt;
-&lt;div style=&quot;margin-left: 20px;&quot;&gt;[[yketa.xyz|https://yketa.xyz]]&amp;nbsp;&amp;bull;&amp;nbsp;[[yann-edwin.keta@ens-lyon.fr|mailto:yann-edwin.keta@ens-lyon.fr]]&lt;/div&gt;&lt;br&gt;
+&lt;div style=&quot;margin-left: 20px;&quot;&gt;[[yketa.xyz|https://yketa.xyz]]&amp;nbsp;&amp;bull;&amp;nbsp;[[yann-edwin.keta@umontpellier.fr|mailto:yann-edwin.keta@umontpellier.fr]]&lt;/div&gt;&lt;br&gt;
 ''Supervisors'':&lt;br&gt;
 &lt;div style=&quot;margin-left: 20px;&quot;&gt;Ludovic Berthier, //Laboratoire Charles Coulomb// (UMR 5221 CNRS), //Université de Montpellier//&lt;br&gt;Robert L. Jack, //Department of Applied Mathematics and Theoretical Physics//, //University of Cambridge//&lt;/div&gt;
 
