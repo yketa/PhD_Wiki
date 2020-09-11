@@ -480,6 +480,8 @@ Error message and password prompt
 
 <li>Draft of 'One AOUP'</li>
 
+<li>Flow characteristics</li>
+
 <li>Macros</li>
 
 <li>One AOUP</li>
@@ -9962,7 +9964,7 @@ config.macros.bibliography = {
 <div created="20180606020526389" modified="20180606020526389" title="$:/state/toc/TableOfContents/Measurements/Strain and vorticity fields-Strain correlations--81657105">
 <pre>open</pre>
 </div>
-<div list="[[Active Ornstein-Uhlenbeck particles]] [[One AOUP]] Project" title="$:/StoryList">
+<div list="[[Flow characteristics]] [[One AOUP]] Project" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20190725184303281" modified="20190727111023175" title="$:/temp/advancedsearch">
@@ -10941,6 +10943,27 @@ div.tc-tiddler-frame table.custom-table { border: 2px solid #808080 !important; 
 </div>
 <div modified="20200907134554965" title="Draft of 'One AOUP'">
 <pre></pre>
+</div>
+<div created="20200910092131603" modified="20200910094629269" tags="TableOfContents" title="Flow characteristics">
+<pre>! Dynamical heterogeneities
+
+([[Briand and Dauchot, 2016|https://doi.org/10.1103/PhysRevLett.117.098004]])
+
+!! Dynamical overlap function
+
+We can assess the fraction of dynamically arrested particles with the dynamical overlap function $$Q$$
+$$
+Q(a, \Delta t) = \left&lt; \frac{1}{N} \sum_{i=1}^N \exp\left(-\frac{|\underline{r}_i(t_0 + \Delta t) - \underline{r}_i(t_0)|^2}{a^2}\right) \right&gt;_{t_0}
+$$
+//e.g.// evaluated in $$a=1$$.
+
+!! Dynamical susceptibility
+
+We have that the maximum $$\chi_4^{\mathrm{max}}$$ of the dynamical susceptibility
+$$
+\chi_4^{\mathrm{max}}(a, \Delta t) = N \mathrm{Var}\left(\frac{1}{N} \sum_{i=1}^N \exp\left(-\frac{|\underline{r}_i(t_0 + \Delta t) - \underline{r}_i(t_0)|^2}{a^2}\right)\right)_{t_0}
+$$
+quantifies the heterogeneities of the dynamics, and takes place around the (structural) relaxation time.</pre>
 </div>
 <div created="20200825171227670" modified="20200907100735887" tags="$:/tags/Macro" title="Macros">
 <pre>\define plot(image:&quot;&quot;)
