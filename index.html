@@ -488,6 +488,8 @@ Error message and password prompt
 
 <li>Project</li>
 
+<li>Structure characteristics</li>
+
 <li>TableOfContents</li>
 
 </ul>
@@ -9964,7 +9966,7 @@ config.macros.bibliography = {
 <div created="20180606020526389" modified="20180606020526389" title="$:/state/toc/TableOfContents/Measurements/Strain and vorticity fields-Strain correlations--81657105">
 <pre>open</pre>
 </div>
-<div list="[[Flow characteristics]] [[One AOUP]] Project" title="$:/StoryList">
+<div list="[[Active Ornstein-Uhlenbeck particles]] Project" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20190725184303281" modified="20190727111023175" title="$:/temp/advancedsearch">
@@ -10810,7 +10812,7 @@ This plugin also requires the JSZip plugin ([[$:/plugins/tiddlywiki/jszip]]) to 
 <div created="20190727110537306" modified="20190727110548195" title="$:/themes/tiddlywiki/vanilla/settings/fontfamily">
 <pre>&quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Lucida Grande&quot;, &quot;DejaVu Sans&quot;, sans-serif</pre>
 </div>
-<div created="20200825155432570" modified="20200907120040631" tags="TableOfContents" title="Active Ornstein-Uhlenbeck particles">
+<div created="20200825155432570" modified="20200922143937383" tags="TableOfContents" title="Active Ornstein-Uhlenbeck particles">
 <pre>We define active Ornstein-Uhlenbeck particles ([[Bonilla, 2019|https://doi.org/10.1103/PhysRevE.100.022601]], [[Fodor et al., 2016|https://doi.org/10.1103/PhysRevLett.117.038103]]).
 
 We refer to ([[yketa/DAMTP_MSC_2019_Wiki#Active Brownian particles|https://yketa.github.io/DAMTP_MSC_2019_Wiki/#Active%20Brownian%20particles]]) for definitions of the polarisation order parameter and the active work.
@@ -10824,53 +10826,76 @@ We refer to ([[yketa/DAMTP_MSC_2019_Wiki#Active Brownian particles|https://yketa
 With $$\underline{r}_i$$ and $$\underline{p}_i$$ the position and self-propulsion vector of particle $$i$$ ($$i \in \{1,\ldots,N\}$$), we have the equations of motion of AOUPs
 $$
 \begin{aligned}
-\dot{\underline{r}}_i &amp;= - \mu \sum_{j \neq i} \nabla_i V(|\underline{r}_i - \underline{r}_j|) + \underline{p}_i,\\
-\dot{\underline{p}}_i &amp;= - D_r \underline{p}_i + \sqrt{2 \, D_r^2 \, D} \, \underline{\eta}_i,
+\dot{\underline{r}}_i &amp;= \mu \left[- \nabla_i V + \underline{p}_i\right],\\
+\dot{\underline{p}}_i &amp;= - D_r \underline{p}_i + \sqrt{\frac{2 \, D_r^2 \, D}{\mu^2}} \, \underline{\eta}_i,
 \end{aligned}
 $$
-where $$\underline{\eta}_i$$ is a zero-mean unit-variance Gaussian white noise, //i.e.// $$\left&lt;\eta_i^{\alpha}(t) \, \eta_j^{\beta}(t^{\prime})\right&gt; = \delta_{\alpha\beta} \delta_{ij} \delta(t - t^{\prime})$$, $$\mu$$ is the mobility, $$D_r$$ is the rotational diffusivity, and $$D$$ is the translational diffusivity. We note that the name of the model stems from the self-propulsion vector performing an Ornstein-Uhlenbeck process ([[Gardiner, 2009|https://www.springer.com/gp/book/9783540707127]], § 3.8.4, § 4.4.4), therefore
+where $$\underline{\eta}_i$$ is a zero-mean unit-variance Gaussian white noise, //i.e.// $$\left&lt;\eta_i^{\alpha}(t) \, \eta_j^{\beta}(t^{\prime})\right&gt; = \delta_{\alpha\beta} \delta_{ij} \delta(t - t^{\prime})$$, $$\mu$$ is the mobility, $$D_r$$ is the rotational diffusivity, and $$D$$ is the translational diffusivity.
+
+!!! Polydispersity
+
+We introduce the polydispersity index
+$$
+I = \frac{\sqrt{\left&lt;\sigma^2\right&gt; - \left&lt;\sigma\right&gt;^2}}{\left&lt;\sigma\right&gt;}
+$$
+whre $$\sigma$$ denotes the diameters of particles. With a flat distribution
+$$
+P(\sigma) = \begin{cases} \frac{1}{2 \Delta\sigma} &amp;\text{ if } \sigma \in [\bar{\sigma} - \Delta\sigma, \bar{\sigma} + \Delta\sigma],\\ 0 &amp;\text{ otherwise}, \end{cases}
+$$
+we have $$\left&lt;\sigma\right&gt; = \bar{\sigma}$$ and $$\left&lt;\sigma^2\right&gt; = \bar{\sigma}^2 + \Delta\sigma^2/3$$, such that
+$$
+\Delta\sigma = \sqrt{3} \, \bar{\sigma} \, I
+$$
+from which we can compute our ensemble of diameters.
+
+!!! Interaction potential
+
+With $$\sigma_{ij} = (\sigma_i + \sigma_j)/2$$ the mean diameter of particles $$i$$ and $$j$$, and $$r_{ij} = |\underline{r}_i - \underline{r}_j|$$ their distance, we define the dimensionless WCA potential
+$$
+U_{\mathrm{WCA}} = \sum_{1 \leq i &lt; j \leq N} \left[4 \left(\frac{1}{(r_{ij}/\sigma_{ij})^{12}} - \frac{1}{(r_{ij}/\sigma_{ij})^6}\right) + 1\right] \Theta(2^{1/6} - r_{ij}/\sigma_{ij})
+$$
+where $$\Theta$$ stands for the Heaviside function, and the potential energy of the interaction of the system, $$V_{\mathrm{WCA}} = \varepsilon \, U_{\mathrm{WCA}}$$, such that the interparticle force exerted on particle $$i$$ is
+$$
+\begin{aligned}
+\underline{F}_{\mathrm{WCA}, i} &amp;= - \nabla_i V_{\mathrm{WCA}} = - \varepsilon \nabla_i U_{\mathrm{WCA}}\\
+&amp;= \varepsilon \sum_{1 \leq i &lt; j \leq N} \frac{1}{\sigma_{ij}^2}\left(\frac{48}{(r_{ij}/\sigma_{ij})^{14}} - \frac{24}{(r_{ij}/\sigma_{ij})^{8}}\right) (\underline{r}_i - \underline{r}_j) \Theta(2^{1/6} - r_{ij}/\sigma_{ij}).
+\end{aligned}
+$$
+
+!!! Dimensionless equations
+
+| !Units |&lt;|
+| distance | $$\bar{\sigma} = 1$$ |
+| energy | $$\varepsilon = 1$$ |
+| time | $$\bar{\sigma}/\mu\varepsilon = 1$$ |
+
+$$
+\begin{aligned}
+\dot{\underline{r}}_i &amp;= - \nabla_i U_{\mathrm{WCA}} + \underline{p}_i\\
+\dot{\underline{p}}_i &amp;= - D_r \underline{p}_i + \sqrt{2 \, D_r^2 \, D} \, \underline{\eta}_i
+\end{aligned}
+$$
+
+!!! Ornstein-Uhlenbeck process
+
+We note that the name of the model stems from the self-propulsion vector performing an Ornstein-Uhlenbeck process ([[Gardiner, 2009|https://www.springer.com/gp/book/9783540707127]], § 3.8.4, § 4.4.4), therefore
 $$
 \underline{p}_i(t) = \underline{p}_i(0) e^{-D_r t} + \int_0^t \mathrm{d}s \, \sqrt{2 D_r^2 D} \, \underline{\eta}_i(t) \, e^{-D_r (t - s)}
 $$
 $$
 \begin{aligned}
 \left&lt;\underline{p}_i(t) \cdot \underline{p}_j(t^{\prime})\right&gt; &amp;= \delta_{ij} \left[\left(\left&lt;|\underline{p}_i(0)|^2\right&gt; - d \, D \, D_r\right) e^{-D_r (t + t^{\prime})} + d \, D \, D_r \, \exp(-D_r |t - t^{\prime}|) \right]\\
-&amp;\sim \delta_{ij} d \, D \, D_r \, \exp(-D_r |t - t^{\prime}|),~ t, t^{\prime} \to \infty\\
-&amp;= \left&lt;\left(\underline{p}_i(t) - \underline{p}_i(0) e^{-D_r t}\right) \cdot \left(\underline{p}_j(t^{\prime}) -
- \underline{p}_j(0) e^{-D_r t^{\prime}}\right)\right&gt;,
+&amp;\sim \delta_{ij} d \, D \, D_r \, \exp(-D_r |t - t^{\prime}|),~ t, t^{\prime} \to \infty,
 \end{aligned}
 $$
 $$
 P_s(\underline{p}) = (2 \pi D D_r)^{-d/2} \exp\left(- \frac{1}{2 D_r D} |\underline{p}|^2\right),
 $$
-where $$d = 2$$ is the dimension, and $$P_s$$ denotes the steady-state distribution. We also introduce $$\tau = D_r^{-1}$$ the persistence time. We then have
+where $$d = 2$$ is the dimension, and $$P_s$$ denotes the steady-state distribution which we recognise as a $$d$$-variate normal distribution with mean $$\underline{\mu} = \underline{0}$$ and standard deviation $$\sigma = \sqrt{D D_r}$$. We also introduce $$\tau = D_r^{-1}$$ the persistence time. We then have
 $$
 \left&lt;|\underline{p}|\right&gt; = \int_0^{\infty} (2 \pi r \, \mathrm{d}r) \,  r \, P_s(r) = \int_0^{\infty} (2 \pi r \, \mathrm{d}r) \,  r \, \frac{1}{2 \pi D D_r} \exp\left(- \frac{1}{2 D_r D} r^2\right) = \sqrt{\frac{\pi D D_r}{2}}
 $$
 in steady state.
-
-!!! Interaction potential
-
-With
-$$
-\sigma_{ij} = \frac{\sigma_i + \sigma_j}{2},
-$$
-the mean diameter of particles $$i$$ and $$j$$, we define the interparticle force deriving from the WCA potential between these particles separated by distance $$r$$,
-$$
-\begin{aligned}
-V_{WCA}(r, \epsilon) &amp;= \epsilon\left[4 \left(\frac{1}{(r/\sigma_{ij})^{12}} - \frac{1}{(r/\sigma_{ij})^6}\right) + 1\right] \Theta(2^{1/6} - r/\sigma_{ij}),
-\end{aligned}
-$$
-where $$\Theta$$ stands for the Heaviside function, and $$\sigma$$ is the diameter of particles. We thus have a force of the form
-$$
-\underline{F}_{WCA}(r = \sqrt{\Delta x^2 + \Delta y^2}, \epsilon) = - \frac{\epsilon}{\sigma_{ij}^2}\left(\frac{48}{(r/\sigma_{ij})^{14}} - \frac{24}{(r/\sigma_{ij})^{8}}\right) \begin{pmatrix} \Delta x \\ \Delta y \end{pmatrix} \Theta(2^{1/6} - r/\sigma_{ij}).
-$$
-
-We note that $$\mu$$ only appears in the product $$\mu \epsilon$$ in our equations of motion, it is then equivalent to set either one while keeping the other equal to 1.
-
-!!! Polydispersity
-
-In the case where the system is polydisperse, we will denote $$0 \leq I &lt; 1$$ its polydensity index, such that the diamters of particles are uniformly distributed in $$[1-I; 1+I]$$. We note that, defined this way, the mean diameter of particles is $$\sigma = 1$$.
 
 !! Numerical integration
 
@@ -10878,9 +10903,9 @@ In the case where the system is polydisperse, we will denote $$0 \leq I &lt; 1$$
 
 !!! Initialisation
 
-Simulations with custom parameter relations start with a uniform grid of particles.
+Simulations start with a uniform grid of particles, we then use the [[FIRE algorithm|https://yketa.github.io/DAMTP_MSC_2019_Wiki/#FIRE%20algorithm]] to minismise the overlaps of particles.
 
-Simulations of general polydisperse ABPs also start with a uniform grid of particles, we then use the [[FIRE algorithm|https://yketa.github.io/DAMTP_MSC_2019_Wiki/#FIRE%20algorithm]] to minismise the overlaps of particles.
+We draw the initial self-propulsion vectors from the steady state distribution $$P_s$$.
 
 &lt;&lt;compuscript path:&quot;fire.hpp&quot;&gt;&gt;
 
@@ -11146,6 +11171,15 @@ You are free to copy and redistribute this work in any medium or format, as well
 ---
 
 Powered by [[TiddlyWiki|https://tiddlywiki.com/]] [img height=20 [Images/tiddlywiki.svg]]</pre>
+</div>
+<div created="20200915114654419" modified="20200915140918390" tags="TableOfContents" title="Structure characteristics">
+<pre>! Bond orientational order parameter
+
+We quantify the disorder in the orientation of the local crystal axes with the bond orientational susceptibility ([[Binder and Kob, 2011|https://www.worldscientific.com/worldscibooks/10.1142/7300]], § 2.2, [[Briand and Dauchot, 2016|https://doi.org/10.1103/PhysRevLett.117.098004]]), which in the case of a structure deriving from a tringular lattice has the following expression for particle $$i$$
+$$
+\psi_{6,i} = \frac{1}{z_i} \sum_{\nu=1}^{z_i} \exp\left(\mathrm{i} 6 \Theta_{\nu, i}\right)
+$$
+where $$z_i$$ is the number of nearest neighbours by Voronoi tesselation, and $$\Theta_{\nu, i}$$ is the angle between the vector particle $$i$$ to its $$\nu$$-th neighbour and a reference axis. We can define from this order parameter a susceptibility $$\chi_6 = N \mathrm{Var}(N^{-1} \sum_{i=1}^N \psi_{6,i}(t))_t$$.</pre>
 </div>
 <div caption="Contents" created="20180416043645812" list-after="$:/core/ui/SideBar/Open" modified="20180417010609928" tags="$:/tags/SideBar" title="TableOfContents">
 <pre>&lt;div class=&quot;tc-table-of-contents&quot;&gt;
