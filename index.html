@@ -9966,7 +9966,7 @@ config.macros.bibliography = {
 <div created="20180606020526389" modified="20180606020526389" title="$:/state/toc/TableOfContents/Measurements/Strain and vorticity fields-Strain correlations--81657105">
 <pre>open</pre>
 </div>
-<div list="[[One AOUP]] [[Active Ornstein-Uhlenbeck particles]] [[Flow characteristics]] Project" title="$:/StoryList">
+<div list="[[Structure characteristics]] [[One AOUP]] [[Active Ornstein-Uhlenbeck particles]] [[Flow characteristics]] Project" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20190725184303281" modified="20190727111023175" title="$:/temp/advancedsearch">
@@ -10812,7 +10812,7 @@ This plugin also requires the JSZip plugin ([[$:/plugins/tiddlywiki/jszip]]) to 
 <div created="20190727110537306" modified="20190727110548195" title="$:/themes/tiddlywiki/vanilla/settings/fontfamily">
 <pre>&quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Lucida Grande&quot;, &quot;DejaVu Sans&quot;, sans-serif</pre>
 </div>
-<div created="20200825155432570" modified="20200922143937383" tags="TableOfContents" title="Active Ornstein-Uhlenbeck particles">
+<div created="20200825155432570" modified="20200929160618251" tags="TableOfContents" title="Active Ornstein-Uhlenbeck particles">
 <pre>We define active Ornstein-Uhlenbeck particles ([[Bonilla, 2019|https://doi.org/10.1103/PhysRevE.100.022601]], [[Fodor et al., 2016|https://doi.org/10.1103/PhysRevLett.117.038103]]).
 
 We refer to ([[yketa/DAMTP_MSC_2019_Wiki#Active Brownian particles|https://yketa.github.io/DAMTP_MSC_2019_Wiki/#Active%20Brownian%20particles]]) for definitions of the polarisation order parameter and the active work.
@@ -10903,9 +10903,7 @@ in steady state.
 
 !!! Initialisation
 
-Simulations start with a uniform grid of particles, we then use the [[FIRE algorithm|https://yketa.github.io/DAMTP_MSC_2019_Wiki/#FIRE%20algorithm]] to minismise the overlaps of particles.
-
-We draw the initial self-propulsion vectors from the steady state distribution $$P_s$$.
+If an initial configuration is not provoded, simulations start with a uniform grid of particles, where we use the [[FIRE algorithm|https://yketa.github.io/DAMTP_MSC_2019_Wiki/#FIRE%20algorithm]] to minismise the overlaps of particles. Moreover, we draw the initial self-propulsion vectors from the steady state distribution $$P_s$$.
 
 &lt;&lt;compuscript path:&quot;fire.hpp&quot;&gt;&gt;
 
@@ -10969,7 +10967,7 @@ div.tc-tiddler-frame table.custom-table { border: 2px solid #808080 !important; 
 <div modified="20200907134554965" title="Draft of 'One AOUP'">
 <pre></pre>
 </div>
-<div created="20200910092131603" modified="20200910094629269" tags="TableOfContents" title="Flow characteristics">
+<div created="20200910092131603" modified="20200929163208970" tags="TableOfContents" title="Flow characteristics">
 <pre>! Dynamical heterogeneities
 
 ([[Briand and Dauchot, 2016|https://doi.org/10.1103/PhysRevLett.117.098004]])
@@ -10981,6 +10979,18 @@ $$
 Q(a, \Delta t) = \left&lt; \frac{1}{N} \sum_{i=1}^N \exp\left(-\frac{|\underline{r}_i(t_0 + \Delta t) - \underline{r}_i(t_0)|^2}{a^2}\right) \right&gt;_{t_0}
 $$
 //e.g.// evaluated in $$a=1$$.
+
+We can also define a relaxation time $$\tau_r(q, a)$$ such that $$Q(a, \tau_r(q, a)) = q$$ and rescale it with this relaxation time for a free particle $$\tau_0(q, a)$$ such that
+$$
+Q^{\mathrm{free}}(a, \tau_0(q, a)) = \frac{1}{1 + \frac{2 V_{\Delta r}(\tau_0(q, a))}{a^2}} = q,
+$$
+where $$V_{\Delta r}$$ is the variance for the displacement process (see [[One AOUP]]), which we can compute
+$$
+\tau_0(q, a) = \frac{a^2 \, D_r \, (1 - q) + 4 \, q \, D \, \left(1 + \mathbb{W}\left(-\exp\left(- 1 + \frac{a^2 \, \left(q - 1\right) D_r}{4 \, q \, D}\right)\right)\right)}{4 \, q \, D \, D_r}
+$$
+where $$\mathbb{W}$$ is the [[principal branch Lambert W function|https://en.wikipedia.org/wiki/Lambert_W_function]].
+
+Compared to a definition of the relaxation time $$\tau_r$$ from the self-intermediate scattering function $$F_s$$ ([[Binder and Kob, 2011|https://www.worldscientific.com/worldscibooks/10.1142/7300]], § 2.3, [[Flenner et al., 2016|https://pubs.rsc.org/en/content/articlehtml/2016/sm/c6sm01322h]], [[Berthier et al., 2019|https://aip.scitation.org/doi/full/10.1063/1.5093240]], [[yketa/DAMTP_MSC_2019_Wiki/#ABP flow charactertistics|https://yketa.github.io/DAMTP_MSC_2019_Wiki/#ABP%20flow%20characteristics]]), this has the advantage of not necessitating to first compute the position of the first peak of the structure factor.
 
 !! Dynamical susceptibility
 
@@ -11065,7 +11075,7 @@ Use macro ''toc'' with parameter ''label'' to display a table of contents of tid
 
 &lt;&lt;toc label:&quot;TableOfContents&quot;&gt;&gt;</pre>
 </div>
-<div created="20200825173759735" modified="20200928100051383" tags="[[Active Ornstein-Uhlenbeck particles]]" title="One AOUP">
+<div created="20200825173759735" modified="20200929161211683" tags="[[Active Ornstein-Uhlenbeck particles]]" title="One AOUP">
 <pre>! Free AOUP
 
 We focus on $$N=1$$ systems, without external potential, such that the force term disappears in the equations of motion.
@@ -11111,6 +11121,14 @@ $$
 l_p = \frac{v_0}{D_r} = \sqrt{\frac{D}{D_r}}
 $$
 which is the distance travelled by a free particle at the effective self-propulsion velocity before losing memory of its orientation.
+
+!! Displacement distribution
+
+As an integrated Ornstein-Uhlenbeck process ([[Abundo and Pirozzi, 2018|https://doi.org/10.1016/j.physa.2017.12.043]]), we can show that the displacement $$\Delta \underline{r}(t) = \underline{r}(t) -\underline{r}(0)$$ follows a multivariate normal distribution with zero mean and variance
+$$
+V_{\Delta r}(t) = 2 D\left(\Delta t + D_r^{-1} \left(\exp\left(-D_r\Delta t\right) - 1\right)\right),
+$$
+//i.e.// $$V_{\Delta r}(t) = \left&lt;|\Delta\underline{r}(\Delta t)|^2\right&gt;/d$$.
 
 !! Active temperature
 
@@ -11188,14 +11206,22 @@ You are free to copy and redistribute this work in any medium or format, as well
 
 Powered by [[TiddlyWiki|https://tiddlywiki.com/]] [img height=20 [Images/tiddlywiki.svg]]</pre>
 </div>
-<div created="20200915114654419" modified="20200915140918390" tags="TableOfContents" title="Structure characteristics">
+<div created="20200915114654419" modified="20200929165407220" tags="TableOfContents" title="Structure characteristics">
 <pre>! Bond orientational order parameter
 
 We quantify the disorder in the orientation of the local crystal axes with the bond orientational susceptibility ([[Binder and Kob, 2011|https://www.worldscientific.com/worldscibooks/10.1142/7300]], § 2.2, [[Briand and Dauchot, 2016|https://doi.org/10.1103/PhysRevLett.117.098004]]), which in the case of a structure deriving from a tringular lattice has the following expression for particle $$i$$
 $$
 \psi_{6,i} = \frac{1}{z_i} \sum_{\nu=1}^{z_i} \exp\left(\mathrm{i} 6 \Theta_{\nu, i}\right)
 $$
-where $$z_i$$ is the number of nearest neighbours by Voronoi tesselation, and $$\Theta_{\nu, i}$$ is the angle between the vector particle $$i$$ to its $$\nu$$-th neighbour and a reference axis. We can define from this order parameter a susceptibility $$\chi_6 = N \mathrm{Var}(N^{-1} \sum_{i=1}^N \psi_{6,i}(t))_t$$.</pre>
+where $$z_i$$ is the number of nearest neighbours by Voronoi tesselation, and $$\Theta_{\nu, i}$$ is the angle between the vector particle $$i$$ to its $$\nu$$-th neighbour and a reference axis. We can define from this order parameter a susceptibility $$\chi_6 = N \mathrm{Var}(N^{-1} \sum_{i=1}^N \psi_{6,i}(t))_t$$.
+
+! Local packing fraction
+
+We use the ratio of a particle volume to its Voronoi cell volume to compute the local packing fraction $$\rho_{\mathrm{loc}}$$ ([[Rycroft et al., 2006|https://doi.org/10.1103/PhysRevE.74.021306]], [[Rycroft, 2007|https://dspace.mit.edu/handle/1721.1/41557]], [[Wysocki et al., 2014|https://doi.org/10.1209/0295-5075/105/48004]]) enabling us to define the ratio
+$$
+f_{\rho} = \frac{\left&lt;\min \rho_{\mathrm{loc}}\right&gt;_t}{\left&lt;\max \rho_{\mathrm{loc}}\right&gt;_t}
+$$
+which takes its value between 0 and 1, the latter corresponding to an homogeneous system.</pre>
 </div>
 <div caption="Contents" created="20180416043645812" list-after="$:/core/ui/SideBar/Open" modified="20180417010609928" tags="$:/tags/SideBar" title="TableOfContents">
 <pre>&lt;div class=&quot;tc-table-of-contents&quot;&gt;
