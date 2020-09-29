@@ -9966,7 +9966,7 @@ config.macros.bibliography = {
 <div created="20180606020526389" modified="20180606020526389" title="$:/state/toc/TableOfContents/Measurements/Strain and vorticity fields-Strain correlations--81657105">
 <pre>open</pre>
 </div>
-<div list="[[Active Ornstein-Uhlenbeck particles]] Project" title="$:/StoryList">
+<div list="[[One AOUP]] [[Active Ornstein-Uhlenbeck particles]] [[Flow characteristics]] Project" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20190725184303281" modified="20190727111023175" title="$:/temp/advancedsearch">
@@ -11065,7 +11065,7 @@ Use macro ''toc'' with parameter ''label'' to display a table of contents of tid
 
 &lt;&lt;toc label:&quot;TableOfContents&quot;&gt;&gt;</pre>
 </div>
-<div created="20200825173759735" modified="20200907134554644" tags="[[Active Ornstein-Uhlenbeck particles]]" title="One AOUP">
+<div created="20200825173759735" modified="20200928100051383" tags="[[Active Ornstein-Uhlenbeck particles]]" title="One AOUP">
 <pre>! Free AOUP
 
 We focus on $$N=1$$ systems, without external potential, such that the force term disappears in the equations of motion.
@@ -11096,11 +11096,27 @@ We plot for a single particle and $$D \in \{10^{-2}, 10^0\}$$, $$D_r \in \{10^0,
 
 &lt;&lt;plot &quot;msd1P_AOUP&quot;&gt;&gt;
 
+!! Persistence length
+
+At short times the movement is ballistic with
+$$
+t \to 0,~ \left&lt;|\Delta\underline{r}(\Delta t)|^2\right&gt; \sim d D D_r \Delta t^2,
+$$
+such that we define the effective self-propulsion velocity as $$t \to 0,~ \left&lt;|\Delta\underline{r}(\Delta t)|^2\right&gt; \sim d v_0^2 \Delta t^2$$, //i.e.//
+$$
+v_0 = \sqrt{D D_r}
+$$
+and consequently the persistence length
+$$
+l_p = \frac{v_0}{D_r} = \sqrt{\frac{D}{D_r}}
+$$
+which is the distance travelled by a free particle at the effective self-propulsion velocity before losing memory of its orientation.
+
 !! Active temperature
 
-At long times we have,
+At long times the movement is diffusive with
 $$
-t \rightarrow \infty,~ \left&lt;|\Delta\underline{r}(\Delta t)|^2\right&gt; \sim 2 d D \Delta t,
+t \to \infty,~ \left&lt;|\Delta\underline{r}(\Delta t)|^2\right&gt; \sim 2 d D \Delta t,
 $$
 such that $$D$$ can be interpreted as a translational diffusivity. With the Einstein–Smoluchowski relation
 $$
