@@ -9966,7 +9966,7 @@ config.macros.bibliography = {
 <div created="20180606020526389" modified="20180606020526389" title="$:/state/toc/TableOfContents/Measurements/Strain and vorticity fields-Strain correlations--81657105">
 <pre>open</pre>
 </div>
-<div list="[[Structure characteristics]] [[One AOUP]] [[Active Ornstein-Uhlenbeck particles]] [[Flow characteristics]] Project" title="$:/StoryList">
+<div list="[[Active Ornstein-Uhlenbeck particles]] Project" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20190725184303281" modified="20190727111023175" title="$:/temp/advancedsearch">
@@ -10812,7 +10812,7 @@ This plugin also requires the JSZip plugin ([[$:/plugins/tiddlywiki/jszip]]) to 
 <div created="20190727110537306" modified="20190727110548195" title="$:/themes/tiddlywiki/vanilla/settings/fontfamily">
 <pre>&quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Lucida Grande&quot;, &quot;DejaVu Sans&quot;, sans-serif</pre>
 </div>
-<div created="20200825155432570" modified="20200929160618251" tags="TableOfContents" title="Active Ornstein-Uhlenbeck particles">
+<div created="20200825155432570" modified="20200930125825087" tags="TableOfContents" title="Active Ornstein-Uhlenbeck particles">
 <pre>We define active Ornstein-Uhlenbeck particles ([[Bonilla, 2019|https://doi.org/10.1103/PhysRevE.100.022601]], [[Fodor et al., 2016|https://doi.org/10.1103/PhysRevLett.117.038103]]).
 
 We refer to ([[yketa/DAMTP_MSC_2019_Wiki#Active Brownian particles|https://yketa.github.io/DAMTP_MSC_2019_Wiki/#Active%20Brownian%20particles]]) for definitions of the polarisation order parameter and the active work.
@@ -10860,6 +10860,13 @@ $$
 \underline{F}_{\mathrm{WCA}, i} &amp;= - \nabla_i V_{\mathrm{WCA}} = - \varepsilon \nabla_i U_{\mathrm{WCA}}\\
 &amp;= \varepsilon \sum_{1 \leq i &lt; j \leq N} \frac{1}{\sigma_{ij}^2}\left(\frac{48}{(r_{ij}/\sigma_{ij})^{14}} - \frac{24}{(r_{ij}/\sigma_{ij})^{8}}\right) (\underline{r}_i - \underline{r}_j) \Theta(2^{1/6} - r_{ij}/\sigma_{ij}).
 \end{aligned}
+$$
+
+!!! Packing fraction
+
+We have that with $$U_{\mathrm{WCA}}$$ non-overlaping particles interact if their distance is lesser than $$2^{1/6}$$ to their diameter, we then define the packing fraction
+$$
+\phi = \frac{1}{L^2} \sum_{i=1}^N \frac{\pi (\sigma_i 2^{1/6})^2}{4}
 $$
 
 !!! Dimensionless equations
