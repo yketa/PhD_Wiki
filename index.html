@@ -9970,7 +9970,7 @@ config.macros.bibliography = {
 <div created="20180606020526389" modified="20180606020526389" title="$:/state/toc/TableOfContents/Measurements/Strain and vorticity fields-Strain correlations--81657105">
 <pre>open</pre>
 </div>
-<div list="[[One AOUP]] [[AOUP numerical integration]] [[Active Ornstein-Uhlenbeck particles]] [[Fourier transform field correlation]] [[Structure characteristics]] Project" title="$:/StoryList">
+<div list="[[Flow characteristics]] Project" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20190725184303281" modified="20190727111023175" title="$:/temp/advancedsearch">
@@ -10997,7 +10997,7 @@ div.tc-tiddler-frame table.custom-table { border: 2px solid #808080 !important; 
 <div modified="20200907134554965" title="Draft of 'One AOUP'">
 <pre></pre>
 </div>
-<div created="20200910092131603" modified="20201101141430763" tags="TableOfContents" title="Flow characteristics">
+<div created="20200910092131603" modified="20201111182851610" tags="TableOfContents" title="Flow characteristics">
 <pre>&lt;&lt;compuscript &quot;flow.py&quot;&gt;&gt;
 
 ! Velocity spatial correlations
@@ -11047,7 +11047,43 @@ We have that the maximum $$\chi_4^{\mathrm{max}}$$ of the dynamical susceptibili
 $$
 \chi_4^{\mathrm{max}}(a, \Delta t) = N \mathrm{Var}\left(\frac{1}{N} \sum_{i=1}^N \exp\left(-\frac{|\underline{r}_i(t_0 + \Delta t) - \underline{r}_i(t_0)|^2}{a^2}\right)\right)_{t_0}
 $$
-quantifies the heterogeneities of the dynamics, and takes place around the (structural) relaxation time.</pre>
+quantifies the heterogeneities of the dynamics, and takes place around the (structural) relaxation time.
+
+! Cage-relative displacements
+
+Cage-relative (CR) displacements can be used to avoid the &quot;smearing out&quot; of local events by Mermin-Wagner fluctuations (long wavelength density fluctuations) in 2D amorphous materials ([[Illing et al., 2016|https://doi.org/10.1073/pnas.1612964114]]) which can be at the origin of differences in global measures of the relaxation between 2D and 3D amorphous materials ([[Flenner and Szamel, 2015|https://www.nature.com/articles/ncomms8392/]]).
+
+Given $$\mathcal{N}_i(t)$$ the nearest neighbours of particle $$i$$ at time $$t$$ (//e.g.//, determined via Voronoi tesselation), we define
+$$
+\begin{aligned}
+\Delta^{\mathrm{CR}} \underline{r}_i(t, t + \Delta t) &amp;= \left[\underline{r}_i(t + \Delta t) - \underline{r}_i(t)\right] - \frac{1}{\#\mathcal{N}_i(t)} \sum_{j \in \mathcal{N}_i(t)} \left[\underline{r}_j(t + \Delta t) - \underline{r}_j(t)\right]\\
+&amp;= \Delta \underline{r}_i(t, t + \Delta t) - \frac{1}{\#\mathcal{N}_i(t)} \sum_{j \in \mathcal{N}_i(t)} \Delta \underline{r}_j(t, t + \Delta t)
+\end{aligned}
+$$
+the CR displacement of particle $$i$$ between times $$t$$ and $$t + \Delta t$$.
+
+!! Cage-relative mean squared displacement
+
+We define the CR MSD as
+$$
+\begin{aligned}
+\left&lt;|\Delta^{\mathrm{CR}} \underline{r}(\Delta t)|^2\right&gt; = \frac{1}{N} \sum_{i=1}^N \Bigg(&amp;\left&lt;|\Delta r_i(t, t + \Delta t)|^2\right&gt;_t\\
+&amp;+ \left&lt;\frac{1}{(\#\mathcal{N}_i(t))^2} \sum_{j, k \in \mathcal{N}_i(t)} \Delta r_j(t, t + \Delta t) \cdot \Delta r_k(t, t + \Delta t)\right&gt;_t\\
+&amp;- 2 \left&lt;\frac{1}{\#\mathcal{N}_i(t)} \sum_{j \in \mathcal{N}_i(t)} \Delta r_i(t, t + \Delta t) \cdot \Delta r_j(t, t + \Delta t)\right&gt;_t\Bigg)
+\end{aligned}
+$$
+and note that, in the $$\Delta t \to \infty$$ limit, we can (i) assume the independence between the number of neighbours of any particle $$i$$ at some time $$t$$ and the displacements of particles $$j$$ and $$k$$ (which may be $$i$$) between times $$t$$ and $$\Delta t$$, and (ii) neglet the correlations between the displacements of different particles, //i.e.//
+$$
+\left&lt;\frac{1}{\#\mathcal{N}_i(t)} \Delta r_j(t, t + \Delta t) \cdot \Delta r_k(t, t + \Delta t)\right&gt;_t = \left&lt;\frac{1}{\#\mathcal{N}_i(t)}\right&gt;_t \left&lt;\Delta r_j(t, t + \Delta t) \cdot \Delta r_k(t, t + \Delta t)\right&gt;_t
+$$
+$$
+j \neq k,~ \left&lt;\Delta r_i(t, t + \Delta t) \cdot \Delta r_j(t, t + \Delta t)\right&gt;_t  = 0
+$$
+so that we can write in this limit
+$$
+\left&lt;|\Delta^{\mathrm{CR}} \underline{r}(\Delta t \to \infty)|^2\right&gt; = \left&lt;|\Delta \underline{r}(\Delta t \to \infty)|^2\right&gt;\left(1 + \left&lt;\frac{1}{\#\mathcal{N}_i(t)}\right&gt;_t\right)
+$$
+where $$ \left&lt;|\Delta \underline{r}(\Delta t)|^2\right&gt;$$ is the conventional mean squared displacement.</pre>
 </div>
 <div created="20201101121853878" modified="20201101121908472" tags="TableOfContents" title="Fourier transform field correlation">
 <pre>Consider two fields $$\underline{u}(\underline{r}),\underline{v}(\underline{r}) \in \mathbb{C}^n$$, with $$\underline{r} \in \mathbb{R}^d$$. We want to compute
