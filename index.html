@@ -9968,7 +9968,7 @@ config.macros.bibliography = {
 <div created="20180606020526389" modified="20180606020526389" title="$:/state/toc/TableOfContents/Measurements/Strain and vorticity fields-Strain correlations--81657105">
 <pre>open</pre>
 </div>
-<div list="Project" title="$:/StoryList">
+<div list="[[Field correlation]] [[Flow characteristics]] [[Structure characteristics]] [[Active Ornstein-Uhlenbeck particles]] Project" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20190725184303281" modified="20190727111023175" title="$:/temp/advancedsearch">
@@ -10814,7 +10814,7 @@ This plugin also requires the JSZip plugin ([[$:/plugins/tiddlywiki/jszip]]) to 
 <div created="20190727110537306" modified="20190727110548195" title="$:/themes/tiddlywiki/vanilla/settings/fontfamily">
 <pre>&quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Lucida Grande&quot;, &quot;DejaVu Sans&quot;, sans-serif</pre>
 </div>
-<div created="20200825155432570" modified="20201101144831099" tags="TableOfContents" title="Active Ornstein-Uhlenbeck particles">
+<div created="20200825155432570" modified="20201130152702139" tags="TableOfContents" title="Active Ornstein-Uhlenbeck particles">
 <pre>We define active Ornstein-Uhlenbeck particles ([[Bonilla, 2019|https://doi.org/10.1103/PhysRevE.100.022601]], [[Fodor et al., 2016|https://doi.org/10.1103/PhysRevLett.117.038103]]).
 
 We refer to ([[yketa/DAMTP_MSC_2019_Wiki#Active Brownian particles|https://yketa.github.io/DAMTP_MSC_2019_Wiki/#Active%20Brownian%20particles]]) for definitions of the polarisation order parameter and the active work.
@@ -10869,6 +10869,14 @@ $$
 We have that with $$U_{\mathrm{WCA}}$$ non-overlaping particles interact if their distance is lesser than $$2^{1/6}$$ to their diameter, we then define the packing fraction
 $$
 \phi = \frac{1}{L^2} \sum_{i=1}^N \frac{\pi (\sigma_i 2^{1/6})^2}{4}
+$$
+with
+$$
+\sigma_i = 1 + \sqrt{3} I \left(2 \frac{i - 1}{N - 1} - 1\right)
+$$
+from which it follows
+$$
+L = \sqrt{\frac{\pi N \left(1 + I^2 \frac{N + 1}{N - 1}\right)}{2^{5/3} \phi}}.
 $$
 
 !!! Dimensionless equations
@@ -10992,7 +11000,7 @@ div.tc-tiddler-frame table.custom-table { border: 2px solid #808080 !important; 
 /* invert colors */
 /*img { filter: invert(100%); }*/</pre>
 </div>
-<div created="20201101121853878" modified="20201112145221698" tags="TableOfContents" title="Field correlation">
+<div created="20201101121853878" modified="20201130165219281" tags="TableOfContents" title="Field correlation">
 <pre>Consider two fields $$\underline{u}(\underline{r}),\underline{v}(\underline{r}) \in \mathbb{C}^n$$, with $$\underline{r} \in \mathbb{R}^d$$. We want to compute
 $$
 \left&lt;\underline{u}(\underline{r})^*\cdot\underline{v}(\underline{r} + \Delta\underline{r})\right&gt;_{\underline{r}} = \mathcal{N}_{uv}^{-1} \int_{\mathbb{R}^d} \mathrm{d}^d\underline{r} \, \underline{u}(\underline{r})^*\cdot\underline{v}(\underline{r} + \Delta\underline{r}) = \mathcal{N}_{uv}^{-1} \sum_{\alpha=1}^n \int_{\mathbb{R}^d} \mathrm{d}^d\underline{r} \, u_{\alpha}(\underline{r})^*v_{\alpha}(\underline{r} + \Delta\underline{r}),
@@ -11053,35 +11061,38 @@ We plotted the velocity autocorrelation function
 $$
 C_{\underline{v}\underline{v}} = \left&lt;\underline{v}(\underline{r})\cdot\underline{v}(\underline{r} + \Delta\underline{r})\right&gt;_{\underline{r}}/\left&lt;|\underline{v}(\underline{r})|^2\right&gt;_{\underline{r}}
 $$
-and the pair distribution function $$g(r)$$.</pre>
+and the pair distribution function $$g(r)$$.
+
+! Cooperativity
+
+We define the cooperativity ([[Doliwa and Heuer, 2000|https://doi.org/10.1103/PhysRevE.61.6898]], [[Flow characteristics]]) of field $$\underline{u}$$ as
+$$
+\zeta_{\underline{u}} = \frac{\frac{1}{L^2} \left&lt;\int \mathrm{d}^2\Delta\underline{r} \, \underline{u}(\underline{r}) \cdot \underline{u}(\underline{r} + \Delta\underline{r})\right&gt;_{\underline{r}}}{\left&lt;|\underline{u}(\underline{r})|^2\right&gt;_{\underline{r}}}
+$$
+which for a field deriving from particles' quantities, //i.e.// $$\underline{u}(\underline{r}_i) \equiv \underline{u}_i$$, is equivalent to
+$$
+\zeta_{\underline{u}} = \frac{\frac{1}{N} \frac{1}{N} \sum_{i=1}^N \underline{u}_i \cdot \sum_{j=1}^N \underline{u}_j}{\frac{1}{N} \sum_{i=1}^N \underline{u}_i^2} = \frac{|\left&lt;\underline{u}_i\right&gt;_i|^2}{\left&lt;|\underline{u}_i|^2\right&gt;_i} = 1 - \frac{\mathrm{Var}(\underline{u}_i)_i}{\left&lt;|\underline{u}_i|^2\right&gt;_i}
+$$
+allowing for quick computation.</pre>
 </div>
-<div created="20200910092131603" modified="20201111225025881" tags="TableOfContents" title="Flow characteristics">
+<div created="20200910092131603" modified="20201130161011292" tags="TableOfContents" title="Flow characteristics">
 <pre>&lt;&lt;compuscript &quot;flow.py&quot;&gt;&gt;
-
-! Velocity spatial correlations
-
-!! Correlation function of the velocity correlation
-
-We introduce an indicator of local alignment of the velocities ([[Caprini et al., 2020|https://doi.org/10.1103/PhysRevLett.124.078001]], [[Caprini et al., 2020|https://doi.org/10.1103/PhysRevResearch.2.023321]])
-$$
-Q_i(r \equiv k \bar{\sigma}) = 1 - 2 \sum_{j \in \mathcal{V}_i(k)} \frac{\min[|\psi_i - \psi_j|, 2\pi - |\psi_i - \psi_j|]}{\pi \, \#\mathcal{V}_i(k)}
-$$
-where $$\mathcal{V}_i(k) \equiv \{j, (k - 1) \bar{\sigma} &lt; |\underline{r}_i - \underline{r}_j| \leq k \bar{\sigma}\}$$, $$\#\mathcal{V}_i(k)$$ is its cardinal, and $$\psi_i \equiv \arg(\underline{v}_i)$$ is the angle between the velocity of particle $$i$$ and the axis of reference. We can then define
-$$
-\begin{aligned}
-Q(r) &amp;= \frac{1}{N} \sum_{i=1}^N Q_i(r)\\
-R &amp;= \int Q(r) \, \mathrm{d}r
-\end{aligned}
-$$
-from this quantity.
 
 ! Dynamical heterogeneities
 
-([[Briand and Dauchot, 2016|https://doi.org/10.1103/PhysRevLett.117.098004]])
+In order to characterise dynamical heterogeneities, we introduce dynamic cooperativites ([[Doliwa and Heuer, 2000|https://doi.org/10.1103/PhysRevE.61.6898]])
+$$
+\zeta_{\underline{F}}(\Delta t) = \left&lt;\frac{|\left&lt;\underline{F}_i(t, t + \Delta t)\right&gt;_i|^2}{\left&lt;|\underline{F}_i(t, t + \Delta t)|^2\right&gt;_i}\right&gt;_t
+$$
+and dynamic susceptiblities ([[Flenner and Szamel, 2016|https://doi.org/10.1088/1742-5468/2016/07/074008]], [[Flenner et al., 2016|https://doi.org/10.1039/C6SM01322H]])
+$$
+\chi_G(\Delta t) = N \mathrm{Var}(\left&lt;G_i(t, t + \Delta t)\right&gt;_i)_t
+$$
+where $$\underline{F}_i(t, t + \Delta t)$$ and $$G_i(t, t + \Delta t)$$ are sensitive to some microscopic dynamic event of particle $$i$$ between times $$t$$ and $$t + \Delta t$$.
 
-!! Dynamical overlap function
+!! Overlap function
 
-We can assess the fraction of dynamically arrested particles with the dynamical overlap function $$Q$$
+We can assess the fraction of dynamically arrested particles with the dynamical overlap function $$Q$$ ([[Briand and Dauchot, 2016|https://doi.org/10.1103/PhysRevLett.117.098004]])
 $$
 Q(a, \Delta t) = \left&lt; \frac{1}{N} \sum_{i=1}^N \exp\left(-\frac{|\underline{r}_i(t_0 + \Delta t) - \underline{r}_i(t_0)|^2}{a^2}\right) \right&gt;_{t_0}
 $$
@@ -11099,13 +11110,24 @@ where $$\mathbb{W}$$ is the [[principal branch Lambert W function|https://en.wik
 
 Compared to a definition of the relaxation time $$\tau_r$$ from the self-intermediate scattering function $$F_s$$ ([[Binder and Kob, 2011|https://www.worldscientific.com/worldscibooks/10.1142/7300]], § 2.3, [[Flenner et al., 2016|https://pubs.rsc.org/en/content/articlehtml/2016/sm/c6sm01322h]], [[Berthier et al., 2019|https://aip.scitation.org/doi/full/10.1063/1.5093240]], [[yketa/DAMTP_MSC_2019_Wiki/#ABP flow charactertistics|https://yketa.github.io/DAMTP_MSC_2019_Wiki/#ABP%20flow%20characteristics]]), this has the advantage of not necessitating to first compute the position of the first peak of the structure factor.
 
-!! Dynamical susceptibility
+Its associated dynamic susceptibility  $$\chi_Q$$ reaches its maximum around the (structural) relaxation time.
 
-We have that the maximum $$\chi_4^{\mathrm{max}}$$ of the dynamical susceptibility
+! Velocity spatial correlations
+
+!! Correlation function of the velocity correlation
+
+We introduce an indicator of local alignment of the velocities ([[Caprini et al., 2020|https://doi.org/10.1103/PhysRevLett.124.078001]], [[Caprini et al., 2020|https://doi.org/10.1103/PhysRevResearch.2.023321]])
 $$
-\chi_4^{\mathrm{max}}(a, \Delta t) = N \mathrm{Var}\left(\frac{1}{N} \sum_{i=1}^N \exp\left(-\frac{|\underline{r}_i(t_0 + \Delta t) - \underline{r}_i(t_0)|^2}{a^2}\right)\right)_{t_0}
+Q_i(r \equiv k \bar{\sigma}) = 1 - 2 \sum_{j \in \mathcal{V}_i(k)} \frac{\min[|\psi_i - \psi_j|, 2\pi - |\psi_i - \psi_j|]}{\pi \, \#\mathcal{V}_i(k)}
 $$
-quantifies the heterogeneities of the dynamics, and takes place around the (structural) relaxation time.
+where $$\mathcal{V}_i(k) \equiv \{j, (k - 1) \bar{\sigma} &lt; |\underline{r}_i - \underline{r}_j| \leq k \bar{\sigma}\}$$, $$\#\mathcal{V}_i(k)$$ is its cardinal, and $$\psi_i \equiv \arg(\underline{v}_i)$$ is the angle between the velocity of particle $$i$$ and the axis of reference. We can then define
+$$
+\begin{aligned}
+Q(r) &amp;= \frac{1}{N} \sum_{i=1}^N \left&lt;Q_i(r)\right&gt;_t\\
+R &amp;= \int Q(r) \, \mathrm{d}r
+\end{aligned}
+$$
+from this quantity.
 
 ! Cage-relative displacements
 
@@ -11149,7 +11171,18 @@ where
 $$
 \left&lt;|\Delta \underline{r}(\Delta t)|^2\right&gt; = \frac{1}{N} \sum_{i=1}^N \left&lt;|\Delta \underline{r}_i(t, t + \Delta t)|^2\right&gt;_t
 $$
-is the conventional mean squared displacement.</pre>
+is the conventional mean squared displacement.
+
+! Self-intermediate scattering function
+
+In order to characterise the structural relaxation and the heterogeneity in this process, we introduce the self-intermediate scattering function $$F_s(k, \Delta t) = \left&lt;F_s(k, t, t + \Delta t)\right&gt;_t$$ ([[Flenner et al., 2016|https://doi.org/10.1039/C6SM01322H]]) where
+$$
+\begin{aligned}
+F_s(k, t, t + \Delta t) &amp;= \left&lt;\exp\left(i \underline{k} \cdot \Delta \underline{r}_i(t, t + \Delta t)\right)\right&gt;_i\\
+&amp;= \left&lt;\frac{1}{2} \left(\cos(k \Delta x_i(t, t + \Delta t)) + \cos(k \Delta y_i(t, t + \Delta t))\right)\right&gt;_i
+\end{aligned}
+$$
+its suceptibility $$\chi_{F_s}$$, as well as their cage-relative counterparts $$F_s^{\mathrm{CR}}$$ and $$\chi_{F_s^{\mathrm{CR}}}$$. We are interested in relaxations at the scale of the interparticle distance so $$k$$ is chosen close to the first peak in the structure factor $$S(k)$$ (see [[Structure characteristics]]).</pre>
 </div>
 <div created="20200825171227670" modified="20201101161535932" tags="$:/tags/Macro" title="Macros">
 <pre>\define plot(image:&quot;&quot; width:&quot;100%&quot;)
@@ -11385,10 +11418,10 @@ You are free to copy and redistribute this work in any medium or format, as well
 
 Powered by [[TiddlyWiki|https://tiddlywiki.com/]] [img height=20 [Images/tiddlywiki.svg]]</pre>
 </div>
-<div created="20200915114654419" modified="20201112180633944" tags="TableOfContents" title="Structure characteristics">
+<div created="20200915114654419" modified="20201130161211512" tags="TableOfContents" title="Structure characteristics">
 <pre>&lt;&lt;compuscript &quot;structure.py&quot;&gt;&gt;
 
-! Density correlation and pair distribution function
+! Density correlations
 
 !! Definitions
 
@@ -11424,6 +11457,19 @@ $$
 g_{\sigma}(\underline{r}) = \frac{V}{N^2} \sum_{i=1}^N \sum_{j \neq i} \left&lt;\delta\left(\underline{r} + \frac{\underline{r}_i - \underline{r}_j}{(\sigma_i + \sigma_j)/2}\right)\right&gt;
 $$
 which rather looks at the distribution of the pair separation relative to their mean radius.
+
+Considering
+$$
+\rho(\underline{k}) = \int \text{d}\underline{r} \, \exp(-\text{i} \underline{k} \cdot \underline{r}) \rho(\underline{r}) = \sum_{i=1}^N \exp(- \text{i} \underline{k} \cdot \underline{r}_i)
+$$
+the Fourier transform of the local particle density, we define the static structure factor
+$$
+\begin{aligned}
+S(\underline{k}) &amp;= \frac{1}{N} \left&lt;\rho(\underline{k}) \rho^*(\underline{k})\right&gt; = \frac{1}{N} \left&lt;\rho(\underline{k}) \rho(-\underline{k})\right&gt; =  \frac{1}{N} \sum_{i,j=1}^N \left&lt;\exp\left(- \text{i} \underline{k} \cdot (\underline{r}_j - \underline{r}_i\right)\right&gt;\\
+&amp;= 1 + \rho \int \text{d}\underline{R} \, \exp(-\text{i} \underline{k} \cdot \underline{R}) g(\underline{R}),
+\end{aligned}
+$$
+which is related to the pair distribution function $$g$$ via Fourier transform.
 
 !! Normalisations
 
