@@ -9839,7 +9839,7 @@ config.macros.bibliography = {
 <div created="20190725184441855" modified="20190725184747575" title="$:/state/ShowPaletteEditor">
 <pre>yes</pre>
 </div>
-<div created="20180417005127058" modified="20200105193709880" title="$:/state/sidebar">
+<div created="20180417005127058" modified="20201210154010777" title="$:/state/sidebar">
 <pre>yes</pre>
 </div>
 <div created="20190727110717182" modified="20200416133246069" title="$:/state/tab--1498284803">
@@ -9968,7 +9968,7 @@ config.macros.bibliography = {
 <div created="20180606020526389" modified="20180606020526389" title="$:/state/toc/TableOfContents/Measurements/Strain and vorticity fields-Strain correlations--81657105">
 <pre>open</pre>
 </div>
-<div list="[[Field correlation]] [[Flow characteristics]] [[Structure characteristics]] [[Active Ornstein-Uhlenbeck particles]] Project" title="$:/StoryList">
+<div list="[[One AOUP]] Project [[Structure characteristics]] [[Flow characteristics]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20190725184303281" modified="20190727111023175" title="$:/temp/advancedsearch">
@@ -11075,7 +11075,7 @@ $$
 $$
 allowing for quick computation.</pre>
 </div>
-<div created="20200910092131603" modified="20201130161011292" tags="TableOfContents" title="Flow characteristics">
+<div created="20200910092131603" modified="20201209215831561" tags="TableOfContents" title="Flow characteristics">
 <pre>&lt;&lt;compuscript &quot;flow.py&quot;&gt;&gt;
 
 ! Dynamical heterogeneities
@@ -11096,7 +11096,7 @@ We can assess the fraction of dynamically arrested particles with the dynamical 
 $$
 Q(a, \Delta t) = \left&lt; \frac{1}{N} \sum_{i=1}^N \exp\left(-\frac{|\underline{r}_i(t_0 + \Delta t) - \underline{r}_i(t_0)|^2}{a^2}\right) \right&gt;_{t_0}
 $$
-//e.g.// evaluated in $$a=1$$.
+//e.g.// evaluated in $$a=1$$, and where the displacement of the centre of mass should be substracted when $$N &gt; 1$$.
 
 We can also define a relaxation time $$\tau_r(q, a)$$ such that $$Q(a, \tau_r(q, a)) = q$$ and rescale it with this relaxation time for a free particle $$\tau_0(q, a)$$ such that
 $$
@@ -11112,9 +11112,26 @@ Compared to a definition of the relaxation time $$\tau_r$$ from the self-interme
 
 Its associated dynamic susceptibility  $$\chi_Q$$ reaches its maximum around the (structural) relaxation time.
 
-! Velocity spatial correlations
+! Velocity correlations
 
-!! Correlation function of the velocity correlation
+We introduce the velocity temporal and radial correlations
+$$
+C_{\underline{v}\underline{v}}(\Delta t) = \left&lt;\frac{\left&lt;\underline{v}_i(t + \Delta t) \cdot \underline{v}_i(t)\right&gt;_i}{\left&lt;|\underline{v}_i(t)|^2\right&gt;_i}\right&gt;_t
+$$
+$$
+C_{\underline{v}\underline{v}}(\Delta r) = \left&lt;\frac{\left&lt;\underline{v}(\underline{r}, t) \cdot \underline{v}(\underline{r} + \Delta \underline{r}, t)\right&gt;_{\underline{r}, |\Delta \underline{r}| = \Delta r}}{\left&lt;|\underline{v}_i(t)|^2\right&gt;_i}\right&gt;_t
+$$
+where the latter is computed as an histogram, as well as its cooperativity
+$$
+\zeta_{\underline{v}} = \left&lt;\frac{|\left&lt;\underline{v}_i(t)\right&gt;_i|^2}{\left&lt;|\underline{v}_i(t)|^2\right&gt;_i}\right&gt;_t
+$$
+and note that in finite systems, the velocity of the centre of mass may be significant and should be substracting by considering the fluctuations of the velocity
+$$
+\delta \underline{v}_i = \underline{v}_i - \left&lt;\underline{v}_j\right&gt;_j
+$$
+instead of the raw velocity $$\underline{v}_i$$ when computing correlations.
+
+!! Correlation function of the velocity orientation
 
 We introduce an indicator of local alignment of the velocities ([[Caprini et al., 2020|https://doi.org/10.1103/PhysRevLett.124.078001]], [[Caprini et al., 2020|https://doi.org/10.1103/PhysRevResearch.2.023321]])
 $$
@@ -11128,6 +11145,14 @@ R &amp;= \int Q(r) \, \mathrm{d}r
 \end{aligned}
 $$
 from this quantity.
+
+!! Kurtosis
+
+We introduce the time-dependent fourth moment (kurtosis) of kinetic energy ([[Mandal et al., 2020|https://doi.org/10.1038/s41467-020-16130-x]])
+$$
+\kappa(\Delta t) = \frac{\left&lt;\left(\left&lt;|\underline{v}_i(t + \Delta t)|^2\right&gt;_i - \left&lt;|\underline{v}_i(t)|^2\right&gt;_i\right)^4\right&gt;_t}{\left(\left&lt;\left(\left&lt;|\underline{v}_i(t + \Delta t)|^2\right&gt;_i - \left&lt;|\underline{v}_i(t)|^2\right&gt;_i\right)^2\right&gt;_t\right)^2}
+$$
+to identify intermittent dynamics.
 
 ! Cage-relative displacements
 
@@ -11156,7 +11181,7 @@ $$
 &amp;- 2 \left&lt;\frac{1}{\#\mathcal{N}_i(t)} \sum_{j \in \mathcal{N}_i(t)} \Delta r_i(t, t + \Delta t) \cdot \Delta r_j(t, t + \Delta t)\right&gt;_t\Bigg)
 \end{aligned}
 $$
-and note that, in the $$\Delta t \to \infty$$ limit, we can (i) assume the independence between the number of neighbours of any particle $$i$$ at some time $$t$$ and the displacements of particles $$j$$ and $$k$$ (which may be $$i$$) between times $$t$$ and $$\Delta t$$, and (ii) neglet the correlations between the displacements of different particles, //i.e.//
+where the displacement of the centre of mass should be substracted when $$N &gt; 1$$, and note that, in the $$\Delta t \to \infty$$ limit, we can (i) assume the independence between the number of neighbours of any particle $$i$$ at some time $$t$$ and the displacements of particles $$j$$ and $$k$$ (which may be $$i$$) between times $$t$$ and $$\Delta t$$, and (ii) neglet the correlations between the displacements of different particles, //i.e.//
 $$
 \left&lt;\frac{1}{\#\mathcal{N}_i(t)} \Delta r_j(t, t + \Delta t) \cdot \Delta r_k(t, t + \Delta t)\right&gt;_t = \left&lt;\frac{1}{\#\mathcal{N}_i(t)}\right&gt;_t \left&lt;\Delta r_j(t, t + \Delta t) \cdot \Delta r_k(t, t + \Delta t)\right&gt;_t
 $$
@@ -11175,14 +11200,19 @@ is the conventional mean squared displacement.
 
 ! Self-intermediate scattering function
 
-In order to characterise the structural relaxation and the heterogeneity in this process, we introduce the self-intermediate scattering function $$F_s(k, \Delta t) = \left&lt;F_s(k, t, t + \Delta t)\right&gt;_t$$ ([[Flenner et al., 2016|https://doi.org/10.1039/C6SM01322H]]) where
+In order to characterise the structural relaxation and the heterogeneity in this process, we introduce the self-intermediate scattering function $$F_s(k, \Delta t) = \left&lt;F_s(k, t, t + \Delta t)\right&gt;_t$$ ([[Flenner et al., 2016|https://doi.org/10.1039/C6SM01322H]]) with
 $$
 \begin{aligned}
-F_s(k, t, t + \Delta t) &amp;= \left&lt;\exp\left(i \underline{k} \cdot \Delta \underline{r}_i(t, t + \Delta t)\right)\right&gt;_i\\
-&amp;= \left&lt;\frac{1}{2} \left(\cos(k \Delta x_i(t, t + \Delta t)) + \cos(k \Delta y_i(t, t + \Delta t))\right)\right&gt;_i
+F_s(k, t, t + \Delta t) &amp;= \left&lt;\cos\left(\underline{k} \cdot \Delta \underline{r}_i(t, t + \Delta t)\right)\right&gt;_i
 \end{aligned}
 $$
-its suceptibility $$\chi_{F_s}$$, as well as their cage-relative counterparts $$F_s^{\mathrm{CR}}$$ and $$\chi_{F_s^{\mathrm{CR}}}$$. We are interested in relaxations at the scale of the interparticle distance so $$k$$ is chosen close to the first peak in the structure factor $$S(k)$$ (see [[Structure characteristics]]).</pre>
+where the displacement of the centre of mass should be substracted when $$N &gt; 1$$, and the average is taken on the $$\underline{k} = (2\pi n_x / L, 2 \pi n_y / L)$$ vectors of the reciprocal Bravais lattice with norm in an interval around $$k$$, as well as its suceptibility $$\chi_{F_s}$$, and their cage-relative counterparts $$F_s^{\mathrm{CR}}$$ and $$\chi_{F_s^{\mathrm{CR}}}$$. In the computation of these quantities, the average on the wavevectors $$\underline{k}$$ is performed last.
+
+At large lag times, we expect the displacements of particles to be uncorrelated, therefore $$\lim_{\Delta t \to \infty} \chi_{F_s}(k, \Delta t) = 1/2$$.
+
+We are interested in relaxations at the scale of the interparticle distance so $$k$$ is chosen close to the first peak in the structure factor $$S(k)$$ (see [[Structure characteristics]]).
+
+</pre>
 </div>
 <div created="20200825171227670" modified="20201101161535932" tags="$:/tags/Macro" title="Macros">
 <pre>\define plot(image:&quot;&quot; width:&quot;100%&quot;)
@@ -11287,7 +11317,7 @@ Use macro ''toc'' with parameter ''label'' to display a table of contents of tid
 
 &lt;&lt;toc label:&quot;TableOfContents&quot;&gt;&gt;</pre>
 </div>
-<div created="20200825173759735" modified="20201014121713993" tags="[[Active Ornstein-Uhlenbeck particles]]" title="One AOUP">
+<div created="20200825173759735" modified="20201209113553127" tags="[[Active Ornstein-Uhlenbeck particles]]" title="One AOUP">
 <pre>! Free AOUP
 
 We focus on $$N=1$$ systems, without external potential, such that the force term disappears in the equations of motion.
@@ -11298,8 +11328,9 @@ These preliminary results enable us to check that the simulation behaves the exp
 
 We define the mean squared displacement
 $$
-\left&lt;|\Delta\underline{r}(\Delta t)|^2\right&gt; = \left&lt;|\underline{r}(t_0 + \Delta t) - \underline{r}(t_0)|^2\right&gt;_{t_0}.
+\left&lt;|\Delta\underline{r}(\Delta t)|^2\right&gt; = \left&lt;|\underline{r}(t_0 + \Delta t) - \underline{r}(t_0)|^2\right&gt;_{t_0}
 $$
+where the displacement of the centre of mass should be substracted when $$N &gt; 1$$.
 
 &lt;&lt;compuscript path:&quot;flow.py&quot;&gt;&gt;
 
