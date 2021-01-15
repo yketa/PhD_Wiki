@@ -9970,7 +9970,7 @@ config.macros.bibliography = {
 <div created="20180606020526389" modified="20180606020526389" title="$:/state/toc/TableOfContents/Measurements/Strain and vorticity fields-Strain correlations--81657105">
 <pre>open</pre>
 </div>
-<div list="[[Flow characteristics]] [[Active Ornstein-Uhlenbeck particles]] [[Periodic boundary conditions]] Project" title="$:/StoryList">
+<div list="[[Field correlation]] Project" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20190725184303281" modified="20190727111023175" title="$:/temp/advancedsearch">
@@ -11002,7 +11002,7 @@ div.tc-tiddler-frame table.custom-table { border: 2px solid #808080 !important; 
 /* invert colors */
 /*img { filter: invert(100%); }*/</pre>
 </div>
-<div created="20201101121853878" modified="20201130165219281" tags="TableOfContents" title="Field correlation">
+<div created="20201101121853878" modified="20210115130957314" tags="TableOfContents" title="Field correlation">
 <pre>Consider two fields $$\underline{u}(\underline{r}),\underline{v}(\underline{r}) \in \mathbb{C}^n$$, with $$\underline{r} \in \mathbb{R}^d$$. We want to compute
 $$
 \left&lt;\underline{u}(\underline{r})^*\cdot\underline{v}(\underline{r} + \Delta\underline{r})\right&gt;_{\underline{r}} = \mathcal{N}_{uv}^{-1} \int_{\mathbb{R}^d} \mathrm{d}^d\underline{r} \, \underline{u}(\underline{r})^*\cdot\underline{v}(\underline{r} + \Delta\underline{r}) = \mathcal{N}_{uv}^{-1} \sum_{\alpha=1}^n \int_{\mathbb{R}^d} \mathrm{d}^d\underline{r} \, u_{\alpha}(\underline{r})^*v_{\alpha}(\underline{r} + \Delta\underline{r}),
@@ -11075,7 +11075,15 @@ which for a field deriving from particles' quantities, //i.e.// $$\underline{u}(
 $$
 \zeta_{\underline{u}} = \frac{\frac{1}{N} \frac{1}{N} \sum_{i=1}^N \underline{u}_i \cdot \sum_{j=1}^N \underline{u}_j}{\frac{1}{N} \sum_{i=1}^N \underline{u}_i^2} = \frac{|\left&lt;\underline{u}_i\right&gt;_i|^2}{\left&lt;|\underline{u}_i|^2\right&gt;_i} = 1 - \frac{\mathrm{Var}(\underline{u}_i)_i}{\left&lt;|\underline{u}_i|^2\right&gt;_i}
 $$
-allowing for quick computation.</pre>
+allowing for quick computation.
+
+! Scaled time-averaged radial autocorrelation
+
+Consider a quantity $$\underline{u}_i(t) \equiv \underline{u}(\underline{r}_i(t), t)$$, we will commonly write
+$$
+C_{\underline{u}\underline{u}}(\Delta r) = \left&lt;\frac{\left&lt;\underline{u}(\underline{r}, t) \cdot \underline{u}(\underline{r} +\Delta\underline{r}, t)\right&gt;_{\underline{r}, |\Delta\underline{r}| = \Delta r}}{\left&lt;|\underline{u}_i(t)|^2\right&gt;_i}\right&gt;_t
+$$
+the scaled radial autocorrelation function of $$\underline{u}$$ averaged over time.</pre>
 </div>
 <div created="20200910092131603" modified="20210115123855343" tags="TableOfContents" title="Flow characteristics">
 <pre>&lt;&lt;compuscript &quot;flow.py&quot;&gt;&gt;
