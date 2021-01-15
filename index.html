@@ -488,6 +488,8 @@ Error message and password prompt
 
 <li>One AOUP</li>
 
+<li>Periodic boundary conditions</li>
+
 <li>Project</li>
 
 <li>Structure characteristics</li>
@@ -9968,7 +9970,7 @@ config.macros.bibliography = {
 <div created="20180606020526389" modified="20180606020526389" title="$:/state/toc/TableOfContents/Measurements/Strain and vorticity fields-Strain correlations--81657105">
 <pre>open</pre>
 </div>
-<div list="[[One AOUP]] Project [[Structure characteristics]] [[Flow characteristics]]" title="$:/StoryList">
+<div list="[[Flow characteristics]] [[Active Ornstein-Uhlenbeck particles]] [[Periodic boundary conditions]] Project" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20190725184303281" modified="20190727111023175" title="$:/temp/advancedsearch">
@@ -10814,7 +10816,7 @@ This plugin also requires the JSZip plugin ([[$:/plugins/tiddlywiki/jszip]]) to 
 <div created="20190727110537306" modified="20190727110548195" title="$:/themes/tiddlywiki/vanilla/settings/fontfamily">
 <pre>&quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Lucida Grande&quot;, &quot;DejaVu Sans&quot;, sans-serif</pre>
 </div>
-<div created="20200825155432570" modified="20201130152702139" tags="TableOfContents" title="Active Ornstein-Uhlenbeck particles">
+<div created="20200825155432570" modified="20210115121435595" tags="TableOfContents" title="Active Ornstein-Uhlenbeck particles">
 <pre>We define active Ornstein-Uhlenbeck particles ([[Bonilla, 2019|https://doi.org/10.1103/PhysRevE.100.022601]], [[Fodor et al., 2016|https://doi.org/10.1103/PhysRevLett.117.038103]]).
 
 We refer to ([[yketa/DAMTP_MSC_2019_Wiki#Active Brownian particles|https://yketa.github.io/DAMTP_MSC_2019_Wiki/#Active%20Brownian%20particles]]) for definitions of the polarisation order parameter and the active work.
@@ -10908,7 +10910,7 @@ $$
 $$
 P_s(\underline{p}) = (2 \pi D D_r)^{-d/2} \exp\left(- \frac{1}{2 D_r D} |\underline{p}|^2\right),
 $$
-where $$d = 2$$ is the dimension, and $$P_s$$ denotes the steady-state distribution which we recognise as a $$d$$-variate normal distribution with mean $$\underline{\mu} = \underline{0}$$ and standard deviation $$\sigma = \sqrt{D D_r}$$. We also introduce $$\tau = D_r^{-1}$$ the persistence time. We then have
+where $$d = 2$$ is the dimension, and $$P_s$$ denotes the steady-state distribution which we recognise as a $$d$$-variate normal distribution with mean $$\underline{\mu} = \underline{0}$$ and standard deviation $$\sigma = \sqrt{D D_r}$$, and $$P_s(|\underline{p}|^2)$$ can be computed as a $$\chi^2$$-distribution ([[Abramowitz and Stegun, 1970|https://www.math.ubc.ca/~cbm/aands/subj.htm]] § 26.4, [[Chi-square distribution|https://en.wikipedia.org/wiki/Chi-square_distribution]]). We also introduce $$\tau = D_r^{-1}$$ the persistence time. We then have, in $$d = 2$$,
 $$
 \left&lt;|\underline{p}|\right&gt; = \int_0^{\infty} (2 \pi r \, \mathrm{d}r) \,  r \, P_s(r) = \int_0^{\infty} (2 \pi r \, \mathrm{d}r) \,  r \, \frac{1}{2 \pi D D_r} \exp\left(- \frac{1}{2 D_r D} r^2\right) = \sqrt{\frac{\pi D D_r}{2}}
 $$
@@ -11075,10 +11077,12 @@ $$
 $$
 allowing for quick computation.</pre>
 </div>
-<div created="20200910092131603" modified="20201209215831561" tags="TableOfContents" title="Flow characteristics">
+<div created="20200910092131603" modified="20210115123855343" tags="TableOfContents" title="Flow characteristics">
 <pre>&lt;&lt;compuscript &quot;flow.py&quot;&gt;&gt;
 
 ! Dynamical heterogeneities
+
+!! Cooperativities and susceptibilities
 
 In order to characterise dynamical heterogeneities, we introduce dynamic cooperativites ([[Doliwa and Heuer, 2000|https://doi.org/10.1103/PhysRevE.61.6898]])
 $$
@@ -11089,6 +11093,26 @@ $$
 \chi_G(\Delta t) = N \mathrm{Var}(\left&lt;G_i(t, t + \Delta t)\right&gt;_i)_t
 $$
 where $$\underline{F}_i(t, t + \Delta t)$$ and $$G_i(t, t + \Delta t)$$ are sensitive to some microscopic dynamic event of particle $$i$$ between times $$t$$ and $$t + \Delta t$$.
+
+!! Four-point stucture factor and dynamic correlation length
+
+We define the four-point structure factor ([[Flenner and Szamel, 2015|https://doi.org/10.1021/jp509442a]]) from $$G_i$$
+$$
+\begin{aligned}
+S_4^G(\underline{q}, \Delta t) &amp;= \frac{1}{N} \left&lt;\left|\sum_{i=1}^N G_i(t, t + \Delta t) e^{-\mathrm{i} \underline{q} \cdot \underline{r}_i(t)}\right|^2\right&gt;_{t}\\
+&amp;= \frac{1}{N} \left&lt;\sum_{i,j=1}^N G_i(t, t + \Delta t)  G_j^*(t, t + \Delta t) e^{-\mathrm{i} \underline{q} \cdot (\underline{r}_i(t) - \underline{r}_j(t))}\right&gt;_{t}\\
+&amp;=  \frac{1}{N} \left&lt;\sum_{i,j=1}^N G_i(t, t + \Delta t)  G_j^*(t, t + \Delta t) \cos(\underline{q} \cdot (\underline{r}_i(t) - \underline{r}_j(t)))\right&gt;_{t}
+\end{aligned}
+$$
+for a wave-vector $$\underline{q} = (2\pi n_x/L, 2\pi n_y/L)$$. In the last line, we consider the actual separation $$\underline{r}_i(t) - \underline{r}_j(t)$$ taking into account [[periodic boundary conditions|Periodic boundary conditions]], however since $$\cos$$ is an even $$2\pi$$-periodic function, we expect the equality from the first line to the last to still hold when considering the bare positions. We note that
+$$
+\lim_{\underline{q} \to 0} S_4^G(\underline{q}, \Delta t) = \chi_G(\Delta t)
+$$
+provided that $$\left&lt;G_i(t, t + \Delta t)\right&gt;_{i, t} = 0$$. We define the dynamic correlation length $$\xi_4^G(\Delta t)$$ by fitting the four-point structure factor to an Ornstein-Zernike function
+$$
+S_4^G(\underline{q}, \Delta t) \approx \frac{\chi_G(\Delta t)}{1 + \left|\xi_4^G(\Delta t)\underline{q}\right|^2},~ \underline{q} \to 0
+$$
+at small wave-vector $$q$$.
 
 !! Overlap function
 
@@ -11200,19 +11224,161 @@ is the conventional mean squared displacement.
 
 ! Self-intermediate scattering function
 
-In order to characterise the structural relaxation and the heterogeneity in this process, we introduce the self-intermediate scattering function $$F_s(k, \Delta t) = \left&lt;F_s(k, t, t + \Delta t)\right&gt;_t$$ ([[Flenner et al., 2016|https://doi.org/10.1039/C6SM01322H]]) with
+!! Function and susceptibility
+
+In order to characterise the structural relaxation and the heterogeneity in this process, we introduce the real part of the self-intermediate scattering function $$F_s(k, \Delta t) = \left&lt;F_s(\underline{k}, t, t + \Delta t)\right&gt;_{t, |\underline{k}|=k}$$ ([[Flenner et al., 2016|https://doi.org/10.1039/C6SM01322H]]) with
 $$
 \begin{aligned}
-F_s(k, t, t + \Delta t) &amp;= \left&lt;\cos\left(\underline{k} \cdot \Delta \underline{r}_i(t, t + \Delta t)\right)\right&gt;_i
+F_s(\underline{k}, t, t + \Delta t) &amp;= \left&lt;\cos\left(\underline{k} \cdot \Delta \underline{r}_i(t, t + \Delta t)\right)\right&gt;_i
 \end{aligned}
 $$
-where the displacement of the centre of mass should be substracted when $$N &gt; 1$$, and the average is taken on the $$\underline{k} = (2\pi n_x / L, 2 \pi n_y / L)$$ vectors of the reciprocal Bravais lattice with norm in an interval around $$k$$, as well as its suceptibility $$\chi_{F_s}$$, and their cage-relative counterparts $$F_s^{\mathrm{CR}}$$ and $$\chi_{F_s^{\mathrm{CR}}}$$. In the computation of these quantities, the average on the wavevectors $$\underline{k}$$ is performed last.
+where the displacement of the centre of mass should be substracted when $$N &gt; 1$$, and the average is taken on the $$\underline{k} = (2\pi n_x / L, 2 \pi n_y / L)$$ vectors of the reciprocal Bravais lattice with norm in an interval around $$k$$ ($$F_s$$ is expected to vary smoothly with $$k$$), as well as its suceptibility $$\chi_{F_s}$$ — which is related to the number of collectively relaxing particles —, and their cage-relative counterparts $$F_s^{\mathrm{CR}}$$ and $$\chi_{F_s^{\mathrm{CR}}}$$. In the computation of these quantities, the average on the wavevectors $$\underline{k}$$ is performed last.
 
 At large lag times, we expect the displacements of particles to be uncorrelated, therefore $$\lim_{\Delta t \to \infty} \chi_{F_s}(k, \Delta t) = 1/2$$.
 
 We are interested in relaxations at the scale of the interparticle distance so $$k$$ is chosen close to the first peak in the structure factor $$S(k)$$ (see [[Structure characteristics]]).
 
-</pre>
+!! Four-point structure factor and dynamic correlation length
+
+With the singe particle real part of the self-intermediate scattering function
+$$
+F_{s, i}(\underline{k}, t, t + \Delta t) = \cos(\underline{k} \cdot \Delta\underline{r}_i(t, t + \Delta t))
+$$
+where the displacement of the centre of mass should be substracted when $$N &gt; 1$$, we define the of the four-point structure factor ([[Flenner and Szamel, 2010|https://doi.org/10.1103/PhysRevLett.105.217801]],
+ [[Flenner et al., 2011|https://doi.org/10.1103/PhysRevE.83.051501]], [[Flenner and Szamel, 2015|https://doi.org/10.1021/jp509442a]])
+$$
+\begin{aligned}
+S_4^{F_s}(\underline{q}, \underline{k}, \Delta t) =~&amp; \frac{1}{N} \left&lt;\left|\sum_{i=1}^N F_{s, i}(\underline{k}, t, t + \Delta t) e^{-\mathrm{i}\underline{q} \cdot \underline{r}_i(t)}\right|^2\right&gt;_{t}
+\end{aligned}
+$$
+which is related to spatially correlated heterogeneous dynamics ([[Flenner and Szamel, 2015|https://doi.org/10.1021/jp509442a]]), and fit it to an Ornstein-Zernike function
+$$
+S_4^{F_s}(\underline{q}, \underline{k}, \Delta t) \approx \frac{\chi_{F_s}(\underline{k}, \Delta t)}{1 + |\xi_4^{F_s}(\underline{k}, \Delta t) \underline{q}|^2},~ \underline{q} \to 0
+$$
+at small wave-vector to define the dynamic correlation length $$\xi_4^{F_s}(\underline{k}, \Delta t)$$.
+
+It may be useful to average $$F_{s,i}(\underline{k}, t, t + \Delta t)$$ over different wav-vector $$\underline{k}$$, it is however computationally very demanding to compute the average on $$\underline{k}$$ last. With $$N_{\underline{k}}$$ the number of wave-vectors on which the average is taken, we introduce
+$$
+F_{s,i}(k, t, t + \Delta t) = \left&lt;F_{s,i}(\underline{k}, t, t + \Delta t)\right&gt;_{|\underline{k}|=k} = \frac{1}{N_{\underline{k}}} \sum_{|\underline{k}|=k} \cos(\underline{k} \cdot \Delta \underline{r}_i(t, t + \Delta t))
+$$
+and note that
+$$
+\begin{aligned}
+&amp;\left&lt;F_{s,i}(k, t, t + \Delta t) F_{s,j}(k, t, t + \Delta t) \cos(\underline{q} \cdot (\underline{r}_i(t) - \underline{r}_j(t)))\right&gt;_t\\
+=~&amp; \frac{1}{N_{\underline{k}}^2} \sum_{[\underline{k}| = k} \sum_{[\underline{k}^{\prime}| = k} \left&lt;\cos(\underline{k}\cdot\Delta\underline{r}_i(t, t + \Delta t))\cos(\underline{k}^{\prime}\cdot\Delta\underline{r}_j(t, t + \Delta t))\cos(\underline{q}\cdot(\underline{r}_i(t) - \underline{r}_j(t)))\right&gt;_t\\
+=~&amp; \frac{1}{2 N_{\underline{k}}^2} \sum_{[\underline{k}| = k} \sum_{[\underline{k}^{\prime}| = k} \Big[ \left&lt;\cos(\underline{k} \cdot \Delta \underline{r}_i(t, t + \Delta t) + \underline{k}^{\prime} \cdot \Delta\underline{r}_j(t, t + \Delta t)) \cos(\underline{q} \cdot (\underline{r}_i(t) - \underline{r}_j(t)))\right&gt;_t\\
+&amp;\qquad\qquad\qquad\qquad \left&lt;\cos(\underline{k} \cdot \Delta \underline{r}_i(t, t + \Delta t) - \underline{k}^{\prime} \cdot \Delta\underline{r}_j(t, t + \Delta t)) \cos(\underline{q} \cdot (\underline{r}_i(t) - \underline{r}_j(t)))\right&gt;_t\Big]
+\end{aligned}
+$$
+such that with the hypothesis
+$$
+\left&lt;\cos(\underline{k} \cdot \Delta \underline{r}_i(t, t + \Delta t) \pm \underline{k}^{\prime} \cdot \Delta\underline{r}_j(t, t + \Delta t)) \cos(\underline{q} \cdot (\underline{r}_j(t) - \underline{r}_i(t)))\right&gt;_t = 0,~ \underline{k} \neq \underline{k}^{\prime},~ \underline{k} \neq -\underline{k}^{\prime}
+$$
+we have
+$$
+\begin{aligned}
+&amp;\left&lt;F_{s,i}(\underline{k}, t, t + \Delta t)F_{s,j}(\underline{k}, t, t + \Delta t)\cos(\underline{q}\cdot(\underline{r}_i(t) - \underline{r}_j(t)))\right&gt;_{t, |\underline{k}| = k}\\
+&amp;\qquad = N_{\underline{k}} \left&lt;F_{s,i}(k, t, t + \Delta t)F_{s,j}(k, t, t + \Delta t)\cos(\underline{q}\cdot(\underline{r}_i(t) - \underline{r}_j(t)))\right&gt;_t\end{aligned}
+$$
+which relation enables faster computation.
+
+! van Hove function
+
+It is also useful to consider the van Hove function ([[Hansen and McDonald, 2006|https://www.elsevier.com/books/theory-of-simple-liquids/hansen/978-0-12-370535-8]] § 7.4, [[Kob and Andersen, 1995|https://doi.org/10.1103/PhysRevE.51.4626]])
+$$
+\begin{aligned}
+G(\Delta \underline{r}, \Delta t) &amp;= \frac{1}{N} \left&lt;\sum_{i,j=1}^N \delta(\Delta\underline{r} - [\underline{r}_j(t + \Delta t) - \underline{r}_i(t)])\right&gt;_t\\
+&amp;= \frac{1}{N} \left&lt;\sum_{i,j=1}^N \delta(\Delta\underline{r} - [\underline{r}_j(t) - \underline{r}_i(t) + \Delta \underline{r}_j(t, t + \Delta t)])\right&gt;_t
+\end{aligned}
+$$
+where the second line highlights the computationally relevant quantities, which is related to the density field
+$$
+\begin{aligned}
+G(\Delta \underline{r}, \Delta t) &amp;= \frac{1}{N} \left&lt;\sum_{i,j=1}^N \int \mathrm{d}\underline{r} \, \delta(\underline{r} + \Delta \underline{r} - \underline{r}_j(t + \Delta t))\delta(\underline{r} - \underline{r}_i(t))\right&gt;_t\\
+&amp;= \frac{1}{N} \left&lt;\int  \mathrm{d}\underline{r} \, \rho(\underline{r} + \Delta \underline{r}, t + \Delta t) \rho(\underline{r}, t)\right&gt;_t = \frac{1}{\rho} \left&lt;\rho(\underline{r} + \Delta \underline{r}, t + \Delta t) \rho(\underline{r}, t)\right&gt;_{\underline{r}, t}
+\end{aligned}
+$$
+such that it corresponds to the density-density time correlation function, and that $$G(\Delta \underline{r}, \Delta t) \, \mathrm{d}\underline{r}$$ quantifies the number of particles in a region $$\mathrm{d}\underline{r}$$ around $$\underline{r} + \Delta\underline{r}$$ at time $$t + \Delta t$$ given that there was a particle at $$\underline{r}$$ at time $$t$$. It then shows its relation to the intermediate scattering function
+$$
+\begin{aligned}
+F(\underline{k}, \Delta t) &amp;= \frac{1}{N} \left&lt;\rho(\underline{k}, t + \Delta t)\rho(-\underline{k}, t)\right&gt;_t\\
+&amp;= \frac{1}{N} \left&lt;\int \mathrm{d}\underline{r} \, \exp(-\mathrm{i} \underline{k} \cdot \underline{r}) \rho(\underline{r}, t + \Delta t) \, \int\mathrm{d}\underline{r} \, \exp(\mathrm{i} \underline{k} \cdot \underline{r}) \rho(\underline{r}, t)\right&gt;_t\\
+&amp;= \frac{1}{N} \left&lt;\left(\sum_{i=1}^N \exp(-\mathrm{i} \underline{k} \cdot \underline{r}_i(t + \Delta t))\right)\left(\sum_{i=1}^N \exp(\mathrm{i} \underline{k} \cdot \underline{r}_i(t))\right)\right&gt;_t\\
+&amp;= \frac{1}{N} \left&lt;\sum_{i,j=1}^N \exp(-\mathrm{i} \underline{k} \cdot (\underline{r}_j(t + \Delta t) - \underline{r}_i(t)))\right&gt;_t\\
+&amp;= \int \mathrm{d}\underline{r} \, \exp(-\mathrm{i} \underline{k} \cdot \underline{r}) \,G(\underline{r}, \Delta t)
+\end{aligned}
+$$
+via Fourier transform.
+
+It is common to decompose van Hove function into self ($$s$$) and distinct ($$d$$) parts
+$$
+\begin{aligned}
+G(\Delta\underline{r}, \Delta t) &amp;= G_s(\Delta\underline{r}, \Delta t) + G_d(\Delta\underline{r}, \Delta t)\\
+G_s(\Delta\underline{r}, \Delta t) &amp;= \frac{1}{N} \left&lt;\sum_{i=1}^N \delta(\Delta\underline{r} - \Delta\underline{r}_i(t, t + \Delta t))\right&gt;_t\\
+G_d(\Delta\underline{r}, \Delta t) &amp;= \frac{1}{N} \left&lt;\sum_{i=1}^N \sum_{j \neq i} \delta(\Delta\underline{r} - [\underline{r}_j(t) - \underline{r}_i(t) + \Delta \underline{r}_j(t, t + \Delta t)])\right&gt;_t
+\end{aligned}
+$$
+where $$G_s$$ then corresponds to the distribution of displacements, and we note that $$G_s(\underline{r}, 0) = \delta(\underline{r})$$, $$G_d(\underline{r}, 0) = \rho g(\underline{r})$$, and $$G_s(\Delta \underline{r}, \Delta t \to \infty) = 1/V$$. Moreover, at any $$\Delta t$$
+$$
+\int \mathrm{d}\underline{r} \, G(\underline{r}, t) = N
+$$
+which indicates $$G_d(\Delta \underline{r}, \Delta t \to \infty) = \rho - 1/V$$.
+
+We will denote $$G_{\delta}$$ the van Hove function computed from the centre of mass relative displacements $$\delta \Delta \underline{r}_i(t, t + \Delta t)$$.
+
+We will compute the radial van Hove function
+$$
+\begin{aligned}
+G(\Delta r, \Delta t) &amp;= \frac{1}{2 \pi \Delta r} \, \frac{1}{N} \left&lt;\sum_{i,j=1}^N \delta(\Delta r - |\underline{r}_j(t) - \underline{r}_i(t) + \Delta \underline{r}_j(t, t + \Delta t)|)\right&gt;_t\\
+&amp;= \frac{1}{2 \pi} \int \mathrm{d}\theta \, G(\Delta\underline{r} \equiv (\Delta r, \theta), \Delta t)
+\end{aligned}
+$$
+which would then be written $$G(\Delta r, \Delta t) = G(\Delta \underline{r}, \Delta t)$$ from isotropy.
+
+! Bond-breakage
+
+In order to monitor structural relaxation, we compute for each particle the broken bond-number ([[Shiba et al., 2012|https://doi.org/10.1103/PhysRevE.86.041504]])
+$$
+\mathcal{B}_i(t, t+ \Delta t, A_1, A_2) = \sum_{j=1}^N \Theta(A_1 \sigma_{ij} - |\underline{r}_i(t) - \underline{r}_j(t)|) \, \Theta(|\underline{r}_i(t + \Delta t) - \underline{r}_j(t + \Delta t)| - A_2 \sigma_{ij})
+$$
+with $$\sigma_{ij} = (\sigma_i + \sigma_j)/2$$, which is the number of particles bonded to $$i$$ at time $$t$$ and unbonded at time $$t + \Delta t$$. $$A_1$$ is slightly larger than the peak distance of the pair correlation function $$g(r)$$ and $$A_2$$ is somewhat larger than $$A_1$$.
+
+We define the proporiton of particles with $$k$$ broken bonds between $$t$$ and $$t + \Delta t$$
+$$
+\phi_B^{(k)}(t, t + \Delta t, A_1, A_2) = \frac{1}{N} \sum_{i=1}^N \delta_{k, \mathcal{B}_i(t, t + \Delta t, A_1, A_2)}
+$$
+such that
+$$
+\phi_b(t, t + \Delta t, A_1, A_2) = 1 - \phi_B^{(0)}(t, t + \Delta t, A_1, A_2)
+$$
+is the fraction of particles which have lost at least 1 bond.
+
+! Nonaffine squared displacement
+
+In order to quantify deviations from an affine deformation on a local scale, and thus identify local irreversible shear transformations, we introduce the nonaffine squared displacement ([[Falk and Langer, 1998|https://doi.org/10.1103/PhysRevE.57.7192]], [[Puosi et al., 2016|https://doi.org/10.1103/PhysRevE.94.032604]])
+$$
+D^2_i(t, t + \Delta t, A_1, \underline{\underline{\varepsilon}}) = \sum_{j, |\underline{r}_i(t) - \underline{r}_j(t)| \leq A_1 \sigma_{ij}} \left|\underline{r}_j(t + \Delta t) - \underline{r}_i(t + \Delta t) - (\mathbb{I} + \underline{\underline{\varepsilon}})(\underline{r}_j(t) - \underline{r}_i(t))\right|^2
+$$
+where $$\sigma_{ij} = (\sigma_i + \sigma_j)/2$$, $$\mathbb{I} = (\delta_{\alpha\beta})_{\alpha\beta}$$ is the identity matrix, and $$\underline{\underline{\varepsilon}} = (\varepsilon_{\alpha\beta})_{\alpha\beta}$$ is a linear deformation tensor (uniform strain). It is minimised by the appropriate tensor
+$$
+\begin{aligned}
+\varepsilon^{i, \mathrm{min}}_{\alpha\beta} &amp;= \sum_{\gamma} X^i_{\alpha\gamma} {Y^i_{\gamma\beta}}^{-1} - \delta_{\alpha\beta}\\
+X^i_{\alpha\beta} &amp;= \sum_{j, |\underline{r}_j(t) - \underline{r}_i(t)| \leq A_1 \sigma_{ij}} (r^{\alpha}_j(t + \Delta t) - r^{\alpha}_i(t + \Delta t))(r^{\beta}_j(t) - r^{\beta}_i(t))\\
+Y^i_{\alpha\beta} &amp;= \sum_{j, |\underline{r}_j(t) - \underline{r}_i(t)| \leq A_1 \sigma_{ij}} (r^{\alpha}_j(t) - r^{\alpha}_i(t))(r^{\beta}_j(t) - r^{\beta}_i(t))
+\end{aligned}
+$$
+where we note that $$\underline{\underline{Y}}^i$$ is symmetric and so is
+$$
+(\underline{\underline{Y}}^i)^{-1} = (Y^i_{\mathrm{xx}} Y^i_{\mathrm{yy}} - Y^i_{\mathrm{xy}} Y^i_{\mathrm{yx}}) \begin{pmatrix} Y^i_{\mathrm{yy}} &amp; -Y^i_{\mathrm{xy}} \\ -Y^i_{\mathrm{yx}} &amp; Y^i_{\mathrm{xx}} \end{pmatrix}
+$$
+its inverse, and thus
+$$
+\begin{aligned}
+D^2_{i,\mathrm{min}}(t, t + \Delta t, A_1) = \sum_{j, |\underline{r}_j(t) - \underline{r}_i(t)| \leq A_1 \sigma_{ij}} \sum_{\mu}  \Bigg[r&amp;^{\mu}_j(t + \Delta t) - r^{\mu}_i(t + \Delta t)\\
+&amp;- \sum_{\nu} \left(\sum_{\gamma} X^i_{\mu\gamma} {Y^i_{\gamma\nu}}^{-1}\right)(r^{\nu}_j(t) - r^{\nu}_i(t))\Bigg]^2
+\end{aligned}
+$$
+will give us information about local plastic events.</pre>
 </div>
 <div created="20200825171227670" modified="20201101161535932" tags="$:/tags/Macro" title="Macros">
 <pre>\define plot(image:&quot;&quot; width:&quot;100%&quot;)
@@ -11405,7 +11571,28 @@ We compare the numerical probability distrbution function of the self-propulsion
 
 &lt;&lt;plot &quot;pDist_AOUP'&gt;&gt;</pre>
 </div>
-<div created="20200825151809436" modified="20200906143133992" tags="TableOfContents" title="Project">
+<div created="20210114133754510" modified="20210115120904613" tags="TableOfContents" title="Periodic boundary conditions">
+<pre>In order to consider a homogeneous and isotropic system with a finite number of particles, we use periodic boundary conditions.
+
+Particles have positions $$\underline{r}_i \in [0, L]^2$$. At each iteration from $$x_i^{\alpha}(t) \in [0, L]$$ to $$\tilde{x}^{\alpha}_i(t + \mathrm{d}t)$$, we compute $$q$$ the nearest integer value to $$\tilde{x}^{\alpha}_i(t + \mathrm{d}t)/L$$ and $$r = \tilde{x}^{\alpha}_i(t + \mathrm{d}t) - q \times L$$, and wrap the new coordinate according to
+$$
+x_i^{\alpha}(t + \mathrm{d}t) = \begin{cases} \tilde{x}^{\alpha}_i(t + \mathrm{d}t) - q L,&amp;\text{ if } r
+\geq 0 \\ \tilde{x}^{\alpha}_i(t + \mathrm{d}t) - (q - 1) L,&amp;\text{ if } r
+&lt; 0 \end{cases}
+$$
+so that it remains in $$[0, L]$$.
+
+It is important to note this causes all the distances between particles to be at most $$L/2$$, and we compute the algebraic distance $$\bar{d}(x_i^{\alpha}, x_j^{\alpha})$$ from $$x_i^{\alpha}$$ to $$x_j^{\alpha}$$ with
+$$
+\bar{d}(x^{\alpha}_i, x^{\alpha}_j) = \begin{cases} x^{\alpha}_j - x^{\alpha}_i,&amp;\text{ if } |x^{\alpha}_j - x^{\alpha}_i| \leq L/2 \\ \begin{cases} |x^{\alpha}_j - x^{\alpha}_i| - L,&amp;\text{ if } x_i^{\alpha} &lt; x_j^{\alpha} \\ -(|x^{\alpha}_j - x^{\alpha}_i| - L),&amp;\text{ if } x_i^{\alpha} &gt; x_j^{\alpha} \end{cases},&amp;\text{ if } |x^{\alpha}_j - x^{\alpha}_i| &gt; L/2 \end{cases}
+$$
+such that we have
+$$
+F\left(\frac{P}{L} n \bar{d}(x_i^{\alpha}, x_j^{\alpha})\right) = F\left(\frac{P}{L} n (x_j^{\alpha} - x_i^{\alpha})\right)
+$$
+for any $$P$$-periodic even function $$F$$.</pre>
+</div>
+<div created="20200825151809436" modified="20210115125213365" tags="TableOfContents" title="Project">
 <pre>''Author'': Yann-Edwin Keta, //Laboratoire Charles Coulomb// (UMR 5221 CNRS), //Université de Montpellier//&lt;br&gt;
 &lt;div style=&quot;margin-left: 20px;&quot;&gt;[[yketa.xyz|https://yketa.xyz]]&amp;nbsp;&amp;bull;&amp;nbsp;[[yann-edwin.keta@umontpellier.fr|mailto:yann-edwin.keta@umontpellier.fr]]&lt;/div&gt;&lt;br&gt;
 ''Supervisors'':&lt;br&gt;
@@ -11413,6 +11600,10 @@ We compare the numerical probability distrbution function of the self-propulsion
 
 &lt;div style=&quot;font-size: 0.7em; text-align: center; margin-top:3em;margin-bottom: 3em;&quot;&gt;
   &lt;img style=&quot;vertical-align: middle;&quot; height=&quot;90&quot; src=&quot;Images/umontpellier.svg&quot;&gt;
+  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+  &lt;img style=&quot;vertical-align: middle;&quot; height=&quot;90&quot; src=&quot;Images/cnrs.svg&quot;&gt;
+  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+  &lt;img style=&quot;vertical-align: middle;&quot; height=&quot;90&quot; src=&quot;Images/simons.svg&quot;&gt;
   &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
   &lt;img style=&quot;vertical-align: middle;&quot; height=&quot;75&quot; src=&quot;Images/cambridge.svg&quot;&gt;
 &lt;/div&gt;
@@ -11449,7 +11640,7 @@ You are free to copy and redistribute this work in any medium or format, as well
 
 Powered by [[TiddlyWiki|https://tiddlywiki.com/]] [img height=20 [Images/tiddlywiki.svg]]</pre>
 </div>
-<div created="20200915114654419" modified="20201130161211512" tags="TableOfContents" title="Structure characteristics">
+<div created="20200915114654419" modified="20210109183632915" tags="TableOfContents" title="Structure characteristics">
 <pre>&lt;&lt;compuscript &quot;structure.py&quot;&gt;&gt;
 
 ! Density correlations
@@ -11479,15 +11670,22 @@ where we have introduce
 $$
 g(\underline{r}) = \frac{V}{N^2} \sum_{i=1}^N \sum_{j \neq i} \left&lt;\delta(\underline{r} + \underline{r}_i - \underline{r}_j)\right&gt;
 $$
-the pair distribution function.
+the pair distribution function, and will compute
+$$
+\begin{aligned}
+g(r) &amp;= \frac{1}{2\pi r} \frac{V}{N^2} \sum_{i=1} \sum_{j \neq i} \left&lt;\delta(r - |\underline{r}_j - \underline{r}_i|)\right&gt;\\
+&amp;= \frac{1}{2\pi} \int \mathrm{d}\theta \, g(\underline{r} \equiv (r, \theta))
+\end{aligned}
+$$
+its radial equivalent.
 
 We note that for $$r &gt; 0$$, $$g(r)$$ and $$1 + G(r)/\rho^2$$ should be identical.
 
 We also propose a variant of the pair correlation function
 $$
-g_{\sigma}(\underline{r}) = \frac{V}{N^2} \sum_{i=1}^N \sum_{j \neq i} \left&lt;\delta\left(\underline{r} + \frac{\underline{r}_i - \underline{r}_j}{(\sigma_i + \sigma_j)/2}\right)\right&gt;
+g_{\sigma}(\underline{r}) = \frac{V}{N^2} \sum_{i=1}^N \sum_{j \neq i} \left&lt;\delta\left(\underline{r} + \frac{\underline{r}_i - \underline{r}_j}{\sigma_{ij}}\right)\right&gt;
 $$
-which rather looks at the distribution of the pair separation relative to their mean radius.
+with $$\sigma_{ij} = (\sigma_i + \sigma_j)/2$$ which rather looks at the distribution of the pair separation relative to their mean radius.
 
 Considering
 $$
