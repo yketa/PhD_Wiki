@@ -9970,7 +9970,7 @@ config.macros.bibliography = {
 <div created="20180606020526389" modified="20180606020526389" title="$:/state/toc/TableOfContents/Measurements/Strain and vorticity fields-Strain correlations--81657105">
 <pre>open</pre>
 </div>
-<div list="[[Field correlation]] Project" title="$:/StoryList">
+<div list="[[Active Ornstein-Uhlenbeck particles]] [[Flow characteristics]] Project" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20190725184303281" modified="20190727111023175" title="$:/temp/advancedsearch">
@@ -11085,7 +11085,7 @@ C_{\underline{u}\underline{u}}(\Delta r) = \left&lt;\frac{\left&lt;\underline{u}
 $$
 the scaled radial autocorrelation function of $$\underline{u}$$ averaged over time.</pre>
 </div>
-<div created="20200910092131603" modified="20210115123855343" tags="TableOfContents" title="Flow characteristics">
+<div created="20200910092131603" modified="20210120121911724" tags="TableOfContents" title="Flow characteristics">
 <pre>&lt;&lt;compuscript &quot;flow.py&quot;&gt;&gt;
 
 ! Dynamical heterogeneities
@@ -11386,7 +11386,19 @@ D^2_{i,\mathrm{min}}(t, t + \Delta t, A_1) = \sum_{j, |\underline{r}_j(t) - \und
 &amp;- \sum_{\nu} \left(\sum_{\gamma} X^i_{\mu\gamma} {Y^i_{\gamma\nu}}^{-1}\right)(r^{\nu}_j(t) - r^{\nu}_i(t))\Bigg]^2
 \end{aligned}
 $$
-will give us information about local plastic events.</pre>
+will give us information about local plastic events.
+
+! Swim velocity
+
+In systems of ABPs, with propulsion at constant speed $$v_0$$ along directions $$\underline{e}_i$$ ($$|\underline{e}_i|=1$$), swim velocity
+$$
+v_{\mathrm{ABP}}(\rho) = \left&lt;\dot{\underline{r}}_i \cdot \underline{e}_i\right&gt;_{i,t} = v_0 + \left&lt;-\nabla_i U \cdot \underline{e}_i\right&gt;_{i,t}
+$$
+has been introduced as the average velocity in the direction of self-propulsion and has been used in thermodynamic descriptions of these systems ([[Solon et al., 2015|https://doi.org/10.1103/PhysRevLett.114.198301]], [[Arnoulx de Pirey et al., 2019|https://doi.org/10.1103/PhysRevLett.123.260602]], [[Reichert et al., 2020|https://arxiv.org/abs/2012.07466]]). We introduce a similar quantity for our AOUPs
+$$
+v(\rho) = \left&lt;\dot{\underline{r}}_i \cdot \hat{\underline{p}}_i\right&gt;_{i,t} = \left&lt;\underline{p}_i \cdot \hat{\underline{p}}_i\right&gt;_{i,t} + \left&lt;-\nabla_i U \cdot \hat{\underline{p}}_i\right&gt;_{i,t} = \sqrt{\frac{\pi D D_r}{2}} + \left&lt;-\nabla_i U \cdot \hat{\underline{p}}_i\right&gt;_{i,t}
+$$
+where $$\hat{\underline{p}}_i = \underline{p}_i/|\underline{p}_i|$$, while stressing that in our case the amplitude of self-propulsion is not constant.</pre>
 </div>
 <div created="20200825171227670" modified="20201101161535932" tags="$:/tags/Macro" title="Macros">
 <pre>\define plot(image:&quot;&quot; width:&quot;100%&quot;)
