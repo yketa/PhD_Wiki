@@ -478,6 +478,8 @@ Error message and password prompt
 
 <li>AOUP numerical integration</li>
 
+<li>AOUP velocity autocorrelations</li>
+
 <li>CustomStylesheet</li>
 
 <li>Field correlation</li>
@@ -9970,7 +9972,7 @@ config.macros.bibliography = {
 <div created="20180606020526389" modified="20180606020526389" title="$:/state/toc/TableOfContents/Measurements/Strain and vorticity fields-Strain correlations--81657105">
 <pre>open</pre>
 </div>
-<div list="[[Active Ornstein-Uhlenbeck particles]] [[Flow characteristics]] Project" title="$:/StoryList">
+<div list="[[AOUP velocity autocorrelations]] [[Flow characteristics]] Project" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20190725184303281" modified="20190727111023175" title="$:/temp/advancedsearch">
@@ -10680,7 +10682,7 @@ This plugin also requires the JSZip plugin ([[$:/plugins/tiddlywiki/jszip]]) to 
 <div created="20180620032354454" modified="20180620032356781" title="$:/temp/RemoteAssetSearch/$:/config/OfficialPluginLibrary">
 <pre>bibtex</pre>
 </div>
-<div created="20180416033117939" modified="20201112180743694" title="$:/temp/search">
+<div created="20180416033117939" modified="20210124175529923" title="$:/temp/search">
 <pre></pre>
 </div>
 <div created="20180620031722320" modified="20180620031722320" tags="$:/tags/ServerConnection" title="$:/temp/ServerConnection/https://tiddlywiki.com/library/v5.1.15/index.html" url="https://tiddlywiki.com/library/v5.1.15/index.html">
@@ -10989,6 +10991,94 @@ Since errors in both simulations appear as higher than expected values of the ki
 ! Gaussian noise
 
 In order to avoid large displacements between two consecutive frame, we redraw these random numbers if they exceed a certain threshold.</pre>
+</div>
+<div created="20210124173507684" modified="20210124175527654" tags="[[Active Ornstein-Uhlenbeck particles]]" title="AOUP velocity autocorrelations">
+<pre>Ref. ([[Henkes et al., 2020|https://doi.org/10.1038/s41467-020-15164-5]]) provides expressions for the velocity autocorrelation function, both in space and time, in the hypotheses that (i) the persistence time $$D_r^{-1} = \tau \ll \tau_{\alpha}$$ the relaxation time, so that on time scales below $$\tau_{\alpha}$$ the self-propulsion reduces to a stochastic, time-correlated force fluctuating inside a local energy minimum, and (ii) full dynamics averages are described by a statistical average over long periods fluctuating around different energy minima, neglecting the contribution of rearrangements (see Fig. 1(a) ([[Henkes et al., 2020|https://doi.org/10.1038/s41467-020-15164-5]])).
+
+It is straightforward to compute Eqs. 40, 41 ([[Henkes et al., 2020|https://doi.org/10.1038/s41467-020-15164-5]], Supp. Mat.) in the case of AOUPs (see [[Active Ornstein-Uhlenbeck particles]]), which are equivalent with the transformation
+$$
+v_0^2 \to 2 D D_r
+$$
+noting that $$v_0^2/2 D_r$$ is effectively the diffusion constant for a free ABP in 2D ([[Fily et al., 2014|https://doi.org/10.1039/C3SM52469H]]). Noting further that we have effectively set the friction coefficient $$\zeta = 1/\mu = 1$$ and the particle size $$a = \bar{\sigma} = 1$$ in our model, we rewrite Eq. 57 ([[Henkes et al., 2020|https://doi.org/10.1038/s41467-020-15164-5]], Supp. Mat.) for the velocity temporal autocorrelation function
+$$
+\begin{aligned}
+\left&lt;\dot{\underline{r}}_i(t) \cdot \dot{\underline{r}}_i(t^{\prime})\right&gt; = \frac{D D_r^2}{2 \pi} \int_0^{2\pi} \mathrm{d}q \, q \, \Bigg[&amp;\frac{(B + \mu) q^2 e^{-(B + \mu) q^2 |t - t^{\prime}|} - D_r e^{-D_r |t - t^{\prime}|}}{(B + \mu)^2 q^4 - D_r^2}\\
+&amp;\qquad+ \frac{\mu q^2 e^{-\mu q^2 |t - t^{\prime}|} - D_r e^{-D_r |t - t^{\prime}|}}{\mu^2 q^4 - D_r^2}\Bigg]
+\end{aligned}
+$$
+where $$B$$ and $$\mu$$ are respectively the bulk and shear moduli, expressed here in inverse time units. In order to reduce the number of parameters, We will make use of the relation
+$$
+B + \mu = 4.3 \mu
+$$
+used in ([[Henkes et al., 2020|https://doi.org/10.1038/s41467-020-15164-5]]).
+
+&lt;div style=&quot;font-size:0.6em;text-align:center;margin:0 auto;width:100%&quot;&gt;
+    &lt;a href=&quot;Summaries/henkes_natcomm_2020/henkes_natcomm_2020_eq57.svg&quot;&gt;[img [Summaries/henkes_natcomm_2020/henkes_natcomm_2020_eq57.svg]]&lt;/a&gt;&lt;br&gt;
+    &lt;a
+        href=&quot;Summaries/henkes_natcomm_2020/henkes_natcomm_2020_eq57.eps&quot;
+        class=&quot;tc-btn-big-green&quot;
+        style=&quot;background-color:#10b10b&quot;
+        target=&quot;_blank&quot;
+        rel=&quot;noopener noreferrer&quot;
+    &gt;
+            {{$:/core/images/picture}}
+            &lt;b&gt;~PostScript image&lt;/b&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+
+It is then possible to write the mean squared displacement
+$$
+\left&lt;|\Delta \underline{r}_i(t, t + \Delta t)|^2\right&gt; = \int_0^{\Delta t} \mathrm{d}t^{\prime} \, \int_0^{\Delta t} \mathrm{d}t^{\prime\prime} \, \left&lt;\dot{\underline{r}}_i(t + t^{\prime}) \cdot \dot{\underline{r}}_i(t + t^{\prime \prime})\right&gt;
+$$
+from our velocity temporal autocorrelation functon
+$$
+\begin{aligned}
+\left&lt;|\Delta \underline{r}_i(t, t + \Delta t)|^2\right&gt; = \frac{D D_r^2}{\pi} \int_0^{2\pi} \mathrm{d}q \, q \, \Bigg[&amp;\frac{\left[(B + \mu) q^2\right]^{-1} (e^{-(B + \mu) q^2 \Delta t} - 1) - D_r^{-1} (e^{-D_r \Delta t} - 1)}{(B + \mu)^2 q^4 - D_r^2}\\
+&amp;\qquad+ \frac{(\mu q^2)^{-1} (e^{-\mu q^2 \Delta t} - 1) - D_r^{-1} (e^{-D_r \Delta t} - 1)}{\mu^2 q^4 - D_r^2}\Bigg]
+\end{aligned}
+$$
+which is ballistic at short times
+$$
+\left&lt;|\Delta \underline{r}_i(t, t + \Delta t)|^2\right&gt; \sim \left&lt;|\dot{\underline{r}}_i(t)|^2\right&gt; \Delta t^2,~ \Delta t \to 0
+$$
+and subdiffusive at long times.
+
+&lt;div style=&quot;font-size:0.6em;text-align:center;margin:0 auto;width:100%&quot;&gt;
+    &lt;a href=&quot;Summaries/henkes_natcomm_2020/henkes_natcomm_2020_eq57_msd.svg&quot;&gt;[img [Summaries/henkes_natcomm_2020/henkes_natcomm_2020_eq57_msd.svg]]&lt;/a&gt;&lt;br&gt;
+    &lt;a
+        href=&quot;Summaries/henkes_natcomm_2020/henkes_natcomm_2020_eq57_msd.eps&quot;
+        class=&quot;tc-btn-big-green&quot;
+        style=&quot;background-color:#10b10b&quot;
+        target=&quot;_blank&quot;
+        rel=&quot;noopener noreferrer&quot;
+    &gt;
+            {{$:/core/images/picture}}
+            &lt;b&gt;~PostScript image&lt;/b&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+
+We also rewrite Eq. 62 ([[Henkes et al., 2020|https://doi.org/10.1038/s41467-020-15164-5]], Supp. Mat.) for the velocity radial autocorrelation function
+$$
+\left&lt;\dot{\underline{r}}(\underline{r}) \cdot \dot{\underline{r}}(\underline{r} + \Delta\underline{r})\right&gt; = \frac{D D_r}{2 \pi} \left[\frac{K_0(\Delta r/\xi_L)}{(\xi_L/\bar{\sigma})^2} + \frac{K_0(\Delta r/\xi_T)}{(\xi_T/\bar{\sigma})^2}\right]
+$$
+$$
+\xi_L = \bar{\sigma} \sqrt{D_r^{-1} (B + \mu)},~ \xi_T = \bar{\sigma} \sqrt{D_r^{-1} \mu}
+$$
+where $$\Delta r = |\Delta\underline{r}|$$ and $$K_0$$ is the $$0$$-th modified Bessel function of the second kind -- we note that $$K_0(\hat{r}) \to \infty$$ as $$\hat{r} \to 0$$, but that these computations rely on a coarse-graining on scale $$\bar{\sigma}$$.
+
+&lt;div style=&quot;font-size:0.6em;text-align:center;margin:0 auto;width:100%&quot;&gt;
+    &lt;a href=&quot;Summaries/henkes_natcomm_2020/henkes_natcomm_2020_eq62.svg&quot;&gt;[img [Summaries/henkes_natcomm_2020/henkes_natcomm_2020_eq62.svg]]&lt;/a&gt;&lt;br&gt;
+    &lt;a
+        href=&quot;Summaries/henkes_natcomm_2020/henkes_natcomm_2020_eq62.eps&quot;
+        class=&quot;tc-btn-big-green&quot;
+        style=&quot;background-color:#10b10b&quot;
+        target=&quot;_blank&quot;
+        rel=&quot;noopener noreferrer&quot;
+    &gt;
+            {{$:/core/images/picture}}
+            &lt;b&gt;~PostScript image&lt;/b&gt;
+    &lt;/a&gt;
+&lt;/div&gt;</pre>
 </div>
 <div created="20190812151828852" modified="20200102165742809" tags="$:/tags/Stylesheet" title="CustomStylesheet">
 <pre>/* TABLES */
