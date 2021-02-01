@@ -496,6 +496,8 @@ Error message and password prompt
 
 <li>Structure characteristics</li>
 
+<li>Summaries</li>
+
 <li>TableOfContents</li>
 
 </ul>
@@ -9972,7 +9974,7 @@ config.macros.bibliography = {
 <div created="20180606020526389" modified="20180606020526389" title="$:/state/toc/TableOfContents/Measurements/Strain and vorticity fields-Strain correlations--81657105">
 <pre>open</pre>
 </div>
-<div list="[[Active Ornstein-Uhlenbeck particles]] [[AOUP velocity autocorrelations]] Project" title="$:/StoryList">
+<div list="Summaries Project" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20190725184303281" modified="20190727111023175" title="$:/temp/advancedsearch">
@@ -10682,7 +10684,7 @@ This plugin also requires the JSZip plugin ([[$:/plugins/tiddlywiki/jszip]]) to 
 <div created="20180620032354454" modified="20180620032356781" title="$:/temp/RemoteAssetSearch/$:/config/OfficialPluginLibrary">
 <pre>bibtex</pre>
 </div>
-<div created="20180416033117939" modified="20210124175529923" title="$:/temp/search">
+<div created="20180416033117939" modified="20210201181712686" title="$:/temp/search">
 <pre></pre>
 </div>
 <div created="20180620031722320" modified="20180620031722320" tags="$:/tags/ServerConnection" title="$:/temp/ServerConnection/https://tiddlywiki.com/library/v5.1.15/index.html" url="https://tiddlywiki.com/library/v5.1.15/index.html">
@@ -11512,7 +11514,7 @@ v(\rho) = \left&lt;\dot{\underline{r}}_i \cdot \hat{\underline{p}}_i\right&gt;_{
 $$
 where $$\hat{\underline{p}}_i = \underline{p}_i/|\underline{p}_i|$$, while stressing that in our case the amplitude of self-propulsion is not constant.</pre>
 </div>
-<div created="20200825171227670" modified="20201101161535932" tags="$:/tags/Macro" title="Macros">
+<div created="20200825171227670" modified="20210201181511368" tags="$:/tags/Macro" title="Macros">
 <pre>\define plot(image:&quot;&quot; width:&quot;100%&quot;)
 
 &lt;div style=&quot;font-size:0.6em;text-align:center;margin:0 auto;width:$width$&quot;&gt;
@@ -11573,6 +11575,28 @@ where $$\hat{\underline{p}}_i = \underline{p}_i/|\underline{p}_i|$$, while stres
 
 \end
 
+\define summary(label:&quot;&quot; title:&quot;&quot; description:&quot;&quot;)
+
+! $title$
+
+&lt;style&gt;
+.tiddly-summary a {
+  color: &lt;&lt;colour external-link-foreground&gt;&gt;
+}
+&lt;/style&gt;
+
+&lt;div class=&quot;tiddly-summary&quot;&gt;
+
+$description$
+
+&lt;ul&gt;
+&lt;li&gt; &lt;a href=&quot;https://github.com/yketa/PhD_Wiki/tree/master/Summaries/$label$&quot;&gt;{{$:/core/images/github}} Source files&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt; &lt;a href=&quot;./Summaries/$label$/main.pdf&quot;&gt;{{$:/core/images/file}} Document&lt;/a&gt; &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+
+\end
+
 We define here macros usable for all tiddlers.
 
 ---
@@ -11613,7 +11637,17 @@ Use macro ''toc'' with parameter ''label'' to display a table of contents of tid
 
 ''EXAMPLE''
 
-&lt;&lt;toc label:&quot;TableOfContents&quot;&gt;&gt;</pre>
+&lt;&lt;toc label:&quot;TableOfContents&quot;&gt;&gt;
+
+---
+
+__''summary''__
+
+To use in [[Summaries]], display section with name `[title]` with a link to the folder of source files `Summaries/[label]` on ~GitHub and //.pdf// file `Summaries/[label]/main.pdf`, and a description `[description]`.
+
+''EXAMPLE''
+
+&lt;&lt;summary label:&quot;presentation_21_02_02&quot; title:&quot;Presentation, February 2nd 2021&quot; description:&quot;&quot;&gt;&gt;</pre>
 </div>
 <div created="20200825173759735" modified="20201209113553127" tags="[[Active Ornstein-Uhlenbeck particles]]" title="One AOUP">
 <pre>! Free AOUP
@@ -11868,6 +11902,11 @@ $$
 f_{\rho} = \frac{\left&lt;\min \rho_{\mathrm{loc}}\right&gt;_t}{\left&lt;\max \rho_{\mathrm{loc}}\right&gt;_t}
 $$
 which takes its value between 0 and 1, the latter corresponding to an homogeneous system.</pre>
+</div>
+<div created="20210201181520158" modified="20210201182344451" tags="TableOfContents" title="Summaries">
+<pre>&lt;&lt;summary label:&quot;add_mandal_sollich&quot; title:&quot;Activity-driven dynamics algorithm&quot; description:&quot;&quot;&gt;&gt;
+
+&lt;&lt;summary label:&quot;presentation_21_02_02&quot; title:&quot;Presentation, February 2nd 2021&quot; description:&quot;&quot;&gt;&gt;</pre>
 </div>
 <div caption="Contents" created="20180416043645812" list-after="$:/core/ui/SideBar/Open" modified="20180417010609928" tags="$:/tags/SideBar" title="TableOfContents">
 <pre>&lt;div class=&quot;tc-table-of-contents&quot;&gt;
