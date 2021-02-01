@@ -1,0 +1,156 @@
+\documentclass[pre,aps,superscriptaddress,longbibliography,notitlepage]{revtex4-1}
+
+\usepackage{amsmath,amsfonts,amssymb,bm,graphicx,hyperref,listings,xcolor,float,aligned-overset,hyperref,multirow,rotating}
+\usepackage[ddmmyyyy,24hr]{datetime}
+\setlength{\parindent}{0pt}
+\raggedbottom
+
+\begin{document}
+
+\title{Activity-driven dynamics algorithm}
+\author{Yann-Edwin Keta}
+\date{\today, \currenttime}
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+
+Ref.~\cite{mandal2020study} introduces ``activity-driven dynamics'' (ADD) from the observation that, for any given set of self-propulsion vectors, the time for the particles to reach a force-balanced state does not grow with the persistence time $\tau_p$ of self-propulsion. Therefore, on the time scale of $\tau_p$ and in the limit $\tau_p \to \infty$, the particle configuation instantaneously adapts to changes of the self-propulsion -- the time evolution of the system is driven only by changes in the active forces, hence the name ``ADD''.\\
+
+This separation of time scale, between (1) the evolution of the self-propulsion and (2) the movement towards a corresponding force-balanced state, is exploited in ADD by computing (1) for each time step of $\mathcal{O}(\tau_p)$ and (2) accordingly over a $\tau_p$-independent time. It is therefore possible to reach the large-$\tau_p$ limit with a dramatic reduction in computation time.\\
+
+Ref.~\cite{mandal2020extreme} describes an ``intermittent'' regime at intermediate persistence time and low active driving. Would this regime be the consequence of particles reaching a force-balanced state before the diffusion of self-propulsion directions destabilises the configuration, the ADD alorithm should be relevant to simulate it -- Ref.~\cite{mandal2020study} applies ADD to study Eshelby-like events, which are presented in Ref.~\cite{mandal2020extreme} as a characteristic of the intermittent regime.\\
+
+We highlight some similarities with the ``athermal quasi-static random displacement'' (AQRD) method of Ref.~\cite{morse2020direct} in which a random local strain vector is first associated to each particle, these are then moved quasi-statically in these directions, with a minimisation at each step to find the constrained local minimum of potential energy. This method is equivalent to self-propelled forcing in the limit of zero rotational noise, where the forcing is slower than any other relaxation process.
+
+\section{ADD for inertial ABPs}
+
+\subsection{Model}
+
+Refs.~\cite{mandal2020study,mandal2020multiple} introduce the ADD algorithm for inertial active Brownian particles (ABPs) without thermal noise
+\begin{eqnarray}
+\label{orig-abpr}
+m \ddot{\boldsymbol{r}}_i(t) = - \gamma \dot{\boldsymbol{r}}_i(t) - \nabla_i U(t) + \gamma v_0 \boldsymbol{u}(\theta_i(t))\\
+\label{orig-abptheta}
+\dot{\theta }_i(t) = \sqrt{2/\tau_p} \, \eta_i(t)
+\end{eqnarray}
+with $\boldsymbol{r}_i$ and $\theta_i$ the position and orientation of the $i$-th particle, $m$ the particle mass, $\gamma$ the friction coefficent, $U$ the interaction potential, $v_0$ the self-propulsion velocity, $\boldsymbol{u}(\theta_i) = (\cos\theta_i, \sin\theta_i)$, $\tau_p$ the persitence time, and $\eta_i$ a zero-mean unit-variance Gaussian white noise.\\
+
+Ref.~\cite{mandal2020study} highlights that $U$ can in general contain arbitrary many-body interactions.\\
+
+We want to compute the dynamics on a time scaled by the persistence time
+\begin{equation}
+t^{\prime} = t/\tau_p
+\label{time-scale}
+\end{equation}
+and thus rewrite Eqs.~\ref{orig-abpr},~\ref{orig-abptheta}
+\begin{eqnarray}
+\label{scaled-abpr}
+m\frac{1}{\tau_p^2} \frac{\mathrm{d}^2 \boldsymbol{r}_i}{{\mathrm{d}t^{\prime}}^2}(t^{\prime}) + \gamma \frac{1}{\tau_p} \frac{\mathrm{d}\boldsymbol{r}_i}{\mathrm{d}t^{\prime}}(t^{\prime}) = - \nabla_i U(t^{\prime}) + \gamma v_0 \boldsymbol{u}(\theta_i(t^{\prime}))\\
+\label{scaled-abptheta}
+\frac{\mathrm{d}\theta_i}{\mathrm{d}t^{\prime}}(t^{\prime}) = \sqrt{2} \, \eta^{\prime}_i(t^{\prime})
+\end{eqnarray}
+with $\eta^{\prime}_i$ a zero-mean unit-variance Gaussian white noise in the scaled time variables ($\eta_i^{\prime} = \sqrt{\tau_p} \eta_i$). In the $\tau_p \to \infty$ limit, the left hand side of Eq.~\ref{scaled-abpr} vanishes and the particle configuration thus always satisfies
+\begin{equation}
+0 = -\nabla_i \left(U - \sum_i v_0 \boldsymbol{u}(\theta_i) \cdot \boldsymbol{r}_i\right) = - \nabla_i U_{\rm eff}
+\label{Ueff}
+\end{equation}
+hence minimising an effective potential tilted by the active forces $U_{\rm eff}$.
+
+\subsection{Numerical implementation}
+
+Orientation dynamics (Eq.~\ref{scaled-abptheta}) is integrated first over a time step $\delta t^{\prime}$
+\begin{equation}
+\theta_i(t^{\prime} + \delta t^{\prime}) = \theta_i(t^{\prime}) + \sqrt{2 \delta t^{\prime}} \, \eta^{\prime}_i
+\end{equation}
+where $\eta^{\prime}_i$ is random number taken from a Gaussian distribution with zero-mean and unit-variance.\\
+
+Position dynamics (Eq.~\ref{scaled-abpr}) is then integrated with time step $\Delta t$ to minimise $U_{\rm eff}$ (Eq.~\ref{Ueff}) -- this is done for a time $t_{\rm min}$ until either (i) the total force on each particle falls below a threshold
+\begin{equation}
+\sqrt{\frac{1}{N}\sum_i \left|-\nabla_i U_{\rm eff}\right|^2} \leq F_c
+\label{force-threshold}
+\end{equation}
+or (ii) the minimisation time $t_{\rm min} \propto \Delta t$ reaches a threshold
+\begin{equation}
+t_{\rm min} \leq t_{\rm step}
+\label{time-threshold}
+\end{equation}
+and such that, in the $\tau_p \to \infty$ limit, we have $t_{\rm step} \ll \tau_p \delta t^{\prime}$.\\
+
+In order to perform this minimisation, authors of Ref.~\cite{mandal2020study} use the exponential Euler method \cite{hochbruck2010exponential} on
+\begin{eqnarray}
+\dot{\boldsymbol{v}}_i(t) = -\frac{\gamma}{m} \boldsymbol{v}_i(t) + \frac{1}{m}\left[-\nabla_i U(t) + \gamma v_0 \boldsymbol{u}(\theta_i(t^{\prime} + \delta t^{\prime}))\right]\\
+\dot{\boldsymbol{r}}_i(t) = \boldsymbol{v}_i(t)
+\end{eqnarray}
+thus yielding
+\begin{eqnarray}
+\boldsymbol{v}_i(t + \Delta t) = \Gamma \boldsymbol{v}_i(t) + \frac{1}{\gamma}(1 - \Gamma)\left[-\nabla_i U(t) + \gamma v_0 \boldsymbol{u}(\theta_i(t^{\prime} + \delta t^{\prime}))\right]\\
+\boldsymbol{r}_i(t + \Delta t) = \boldsymbol{r}_i(t) + c_1 \boldsymbol{v}_i(t) + c_2 \left[-\nabla_i U(t) + \gamma v_0 \boldsymbol{u}(\theta_i(t^{\prime} + \delta t^{\prime}))\right]
+\end{eqnarray}
+where
+\begin{eqnarray}
+c_1 = \frac{m}{\gamma} \left(1 - \Gamma\right)\\
+c_2 = \frac{m}{\gamma^2}\left(\frac{\gamma \Delta t}{m} - 1 + \Gamma\right)\\
+\Gamma = \exp\left(-\frac{\gamma\Delta t}{m}\right)
+\end{eqnarray}
+and $\boldsymbol{v}_i$ is the velocity of $i$-th particle.
+
+\section{ADD for overdamped AOUPs}
+
+Ref.~\cite{mandal2020study} already mentions the applicability of ADD to overdamped active Ornstein-Uhlenbeck particles (AOUPs). We develop here the corresponding equations and numerical implementation.\\
+
+We consider overdamped AOUPs without thermal noise
+\begin{eqnarray}
+\label{orig-aoupr}
+\dot{\boldsymbol{r}}_i(t) = -\nabla_i U(t) + \boldsymbol{p}_i(t)\\
+\label{orig-aoupp}
+\dot{\boldsymbol{p}}_i(t) = -D_r \boldsymbol{p}_i(t) + \sqrt{2 D D_r^2} \, \boldsymbol{\eta}_i(t)
+\end{eqnarray}
+with $\boldsymbol{r}_i$ and $\boldsymbol{p}_i$ the position and propulsion vector of the $i$-th particle, $U$ the interaction potential, $D_r = \tau_p^{-1}$ the rotational diffusivity, $D$ the translational diffusivity, and $\boldsymbol{\eta}_i$ a zero-mean unit-variance Gaussian white noise on each component -- note that we have set the mobility $\mu = 1/\gamma = 1$.\\
+
+On the time scale (Eq.~\ref{time-scale})
+\begin{equation}
+t^{\prime} = D_r t
+\end{equation}
+we then rewrite Eqs.~\ref{orig-aoupr},~\ref{orig-aoupp}
+\begin{eqnarray}
+\label{scaled-aoupr}
+D_r \frac{\mathrm{d}\boldsymbol{r}_i}{\mathrm{d}t^{\prime}}(t^{\prime}) = -\nabla_i U(t^{\prime}) + f \tilde{\boldsymbol{p}}_i(t^{\prime})\\
+\label{scaled-aoupp}
+\frac{\mathrm{d}\tilde{\boldsymbol{p}}_i}{\mathrm{d}t^{\prime}}(t^{\prime}) = -\tilde{\boldsymbol{p}}_i(t^{\prime}) + \sqrt{2} \, \boldsymbol{\eta}^{\prime}_i(t^{\prime})\\
+f = \sqrt{D D_r}
+\end{eqnarray}
+with $\boldsymbol{\eta}^{\prime}_i$ a zero-mean unit-variance Gaussian white noise in the scaled time variables ($\boldsymbol{\eta}^{\prime}_i = \sqrt{D_r^{-1}} \boldsymbol{\eta}_i$). In the $D_r^{-1} \to \infty$ limit, at constant $f = \sqrt{D D_r}$, the left hand side of Eq.~\ref{scaled-aoupr} vanishes and the particle configuration thus always satisfy
+\begin{equation}
+0 = -\nabla_i\left(U - f \sum_i \tilde{\boldsymbol{p}}_i\cdot\boldsymbol{r}_i\right) = -\nabla_i U_{\rm eff}
+\label{Ueff-aoup}
+\end{equation}
+hence minimising an effective potential tilted by the active forces $U_{\rm eff}$.\\
+
+With the initial distribution, corresponding to steady state,
+\begin{equation}
+P(\tilde{\boldsymbol{p}}_i(0)) = \frac{1}{2 \pi} \exp\left(-\frac{1}{2} |\tilde{\boldsymbol{p}}_i(0)|^2\right)
+\end{equation}
+propulsion dynamics (Eq.~\ref{scaled-aoupp}) is integrated first on a time step $\delta t^{\prime}$
+\begin{equation}
+\tilde{\boldsymbol{p}}_i(t^{\prime} + \delta t^{\prime}) = (1 - \delta t^{\prime}) \tilde{\boldsymbol{p}}_i^{\prime} + \sqrt{2 \delta t^{\prime}} \, \boldsymbol{\eta}^{\prime}_i
+\end{equation}
+where $\boldsymbol{\eta}^{\prime}_i = (\eta^{\prime}_{i, x}, \eta^{\prime}_{i, y})$ are two random numbers taken from a Gaussian distribution with zero-mean and unit-variance.\\
+
+Position dynamics (Eq.~\ref{scaled-aoupr}) is then integrated with time step $\Delta t$ to minimise $U_{\rm eff}$ (Eq.~\ref{Ueff-aoup}), with the stopping conditions Eqs.~\ref{force-threshold},~\ref{time-threshold}
+\begin{eqnarray}
+\boldsymbol{r}_i(t + \Delta t) = \boldsymbol{r}_i(t) + \Delta t\left[-\nabla_i U(t) + f \tilde{\boldsymbol{p}}_i(t^{\prime} + \delta t^{\prime})\right]
+\end{eqnarray}
+where we have used Euler method, in analogy with Ref.~\cite{mandal2020study}, although a FIRE minimisation \cite{bitzek2006structural,guenole2020assessment} of $U_{\rm eff}$ may also be appropriate.\\
+
+At high packing fraction $\phi$ and intermediate persitence time $D_r^{-1}$, we expect $|-\nabla_i U|^2 = \mathcal{O}(f^2)$ while $|\dot{\boldsymbol{r}}_i|^2 \ll f^2$, therefore Eq.~\ref{Ueff-aoup} also holds. ADD might thus also be suitable for this regime.
+
+\section{Limits}
+
+As we have introduced it, ADD relies on the separation of time scales between the propulsion dynamics and the relaxation to an effective potential energy minimum, hence making $\tau_p \to \infty$ a necessary but not sufficient condition for the procedure to work.\\
+
+In particular, at low density (dilute limit) and intermediate density (\textit{e.g.}, such that MIPS may be observed), we do not expect the dynamics to be dominated by the minimisation of the effective potential.
+
+\bibliography{ref}
+
+\end{document}
