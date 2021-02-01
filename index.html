@@ -9972,7 +9972,7 @@ config.macros.bibliography = {
 <div created="20180606020526389" modified="20180606020526389" title="$:/state/toc/TableOfContents/Measurements/Strain and vorticity fields-Strain correlations--81657105">
 <pre>open</pre>
 </div>
-<div list="[[AOUP velocity autocorrelations]] [[Flow characteristics]] Project" title="$:/StoryList">
+<div list="[[Active Ornstein-Uhlenbeck particles]] [[AOUP velocity autocorrelations]] Project" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20190725184303281" modified="20190727111023175" title="$:/temp/advancedsearch">
@@ -10818,7 +10818,7 @@ This plugin also requires the JSZip plugin ([[$:/plugins/tiddlywiki/jszip]]) to 
 <div created="20190727110537306" modified="20190727110548195" title="$:/themes/tiddlywiki/vanilla/settings/fontfamily">
 <pre>&quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Lucida Grande&quot;, &quot;DejaVu Sans&quot;, sans-serif</pre>
 </div>
-<div created="20200825155432570" modified="20210115121435595" tags="TableOfContents" title="Active Ornstein-Uhlenbeck particles">
+<div created="20200825155432570" modified="20210125145643264" tags="TableOfContents" title="Active Ornstein-Uhlenbeck particles">
 <pre>We define active Ornstein-Uhlenbeck particles ([[Bonilla, 2019|https://doi.org/10.1103/PhysRevE.100.022601]], [[Fodor et al., 2016|https://doi.org/10.1103/PhysRevLett.117.038103]]).
 
 We refer to ([[yketa/DAMTP_MSC_2019_Wiki#Active Brownian particles|https://yketa.github.io/DAMTP_MSC_2019_Wiki/#Active%20Brownian%20particles]]) for definitions of the polarisation order parameter and the active work.
@@ -10837,6 +10837,8 @@ $$
 \end{aligned}
 $$
 where $$\underline{\eta}_i$$ is a zero-mean unit-variance Gaussian white noise, //i.e.// $$\left&lt;\eta_i^{\alpha}(t) \, \eta_j^{\beta}(t^{\prime})\right&gt; = \delta_{\alpha\beta} \delta_{ij} \delta(t - t^{\prime})$$, $$\mu$$ is the mobility, $$D_r$$ is the rotational diffusivity, and $$D$$ is the translational diffusivity.
+
+$$D$$ controls the amount of energy injected into the system, and one recovers a passive Brownian system at $$T = D/\mu k_B$$ in the limit $$D_r^{-1} \to 0$$ ([[Berthier et al., 2017|https://doi.org/10.1088/1367-2630/aa914e]]).
 
 !!! Polydispersity
 
@@ -10992,7 +10994,7 @@ Since errors in both simulations appear as higher than expected values of the ki
 
 In order to avoid large displacements between two consecutive frame, we redraw these random numbers if they exceed a certain threshold.</pre>
 </div>
-<div created="20210124173507684" modified="20210124175527654" tags="[[Active Ornstein-Uhlenbeck particles]]" title="AOUP velocity autocorrelations">
+<div created="20210124173507684" modified="20210125105032746" tags="[[Active Ornstein-Uhlenbeck particles]]" title="AOUP velocity autocorrelations">
 <pre>Ref. ([[Henkes et al., 2020|https://doi.org/10.1038/s41467-020-15164-5]]) provides expressions for the velocity autocorrelation function, both in space and time, in the hypotheses that (i) the persistence time $$D_r^{-1} = \tau \ll \tau_{\alpha}$$ the relaxation time, so that on time scales below $$\tau_{\alpha}$$ the self-propulsion reduces to a stochastic, time-correlated force fluctuating inside a local energy minimum, and (ii) full dynamics averages are described by a statistical average over long periods fluctuating around different energy minima, neglecting the contribution of rearrangements (see Fig. 1(a) ([[Henkes et al., 2020|https://doi.org/10.1038/s41467-020-15164-5]])).
 
 It is straightforward to compute Eqs. 40, 41 ([[Henkes et al., 2020|https://doi.org/10.1038/s41467-020-15164-5]], Supp. Mat.) in the case of AOUPs (see [[Active Ornstein-Uhlenbeck particles]]), which are equivalent with the transformation
@@ -11026,7 +11028,30 @@ used in ([[Henkes et al., 2020|https://doi.org/10.1038/s41467-020-15164-5]]).
     &lt;/a&gt;
 &lt;/div&gt;
 
-It is then possible to write the mean squared displacement
+Integrating the latter at $$t=t^{\prime}$$ yields the mean squared velocity
+$$
+\left&lt;|\dot{\underline{r}}_i(t)|^2\right&gt; = \frac{D D_r}{4\pi} \left[\frac{1}{(\xi_L/\bar{\sigma})^2} \log\left((2\pi\xi_L/\bar{\sigma})^2 + 1\right) + \frac{1}{(\xi_T/\bar{\sigma})^2} \log\left((2\pi\xi_T/\bar{\sigma})^2 + 1\right)\right]
+$$
+$$
+\xi_L = \bar{\sigma} \sqrt{D_r^{-1} (B + \mu)},~ \xi_T = \bar{\sigma} \sqrt{D_r^{-1} \mu}
+$$
+consistently with Eq. 11 ([[Henkes et al., 2020|https://doi.org/10.1038/s41467-020-15164-5]]), and which vanishes for $$\mu, B \to \infty$$.
+
+&lt;div style=&quot;font-size:0.6em;text-align:center;margin:0 auto;width:100%&quot;&gt;
+    &lt;a href=&quot;Summaries/henkes_natcomm_2020/henkes_natcomm_2020_eq11.svg&quot;&gt;[img [Summaries/henkes_natcomm_2020/henkes_natcomm_2020_eq11.svg]]&lt;/a&gt;&lt;br&gt;
+    &lt;a
+        href=&quot;Summaries/henkes_natcomm_2020/henkes_natcomm_2020_eq11.eps&quot;
+        class=&quot;tc-btn-big-green&quot;
+        style=&quot;background-color:#10b10b&quot;
+        target=&quot;_blank&quot;
+        rel=&quot;noopener noreferrer&quot;
+    &gt;
+            {{$:/core/images/picture}}
+            &lt;b&gt;~PostScript image&lt;/b&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+
+It is also possible to write the mean squared displacement
 $$
 \left&lt;|\Delta \underline{r}_i(t, t + \Delta t)|^2\right&gt; = \int_0^{\Delta t} \mathrm{d}t^{\prime} \, \int_0^{\Delta t} \mathrm{d}t^{\prime\prime} \, \left&lt;\dot{\underline{r}}_i(t + t^{\prime}) \cdot \dot{\underline{r}}_i(t + t^{\prime \prime})\right&gt;
 $$
@@ -11060,9 +11085,6 @@ and subdiffusive at long times.
 We also rewrite Eq. 62 ([[Henkes et al., 2020|https://doi.org/10.1038/s41467-020-15164-5]], Supp. Mat.) for the velocity radial autocorrelation function
 $$
 \left&lt;\dot{\underline{r}}(\underline{r}) \cdot \dot{\underline{r}}(\underline{r} + \Delta\underline{r})\right&gt; = \frac{D D_r}{2 \pi} \left[\frac{K_0(\Delta r/\xi_L)}{(\xi_L/\bar{\sigma})^2} + \frac{K_0(\Delta r/\xi_T)}{(\xi_T/\bar{\sigma})^2}\right]
-$$
-$$
-\xi_L = \bar{\sigma} \sqrt{D_r^{-1} (B + \mu)},~ \xi_T = \bar{\sigma} \sqrt{D_r^{-1} \mu}
 $$
 where $$\Delta r = |\Delta\underline{r}|$$ and $$K_0$$ is the $$0$$-th modified Bessel function of the second kind -- we note that $$K_0(\hat{r}) \to \infty$$ as $$\hat{r} \to 0$$, but that these computations rely on a coarse-graining on scale $$\bar{\sigma}$$.
 
