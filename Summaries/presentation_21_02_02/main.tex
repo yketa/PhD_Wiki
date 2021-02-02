@@ -49,8 +49,8 @@
 \begin{frame}{Motivation}
 
 \begin{itemize}
-  \item Both high $\phi$ and $D_r^{-1}$ not well explored.
-  \item Theories of active glass transition for AOUPs focus on low $D_r^{-1}$.
+  \item Both high $\phi$ and $\tau_p$ not well explored.
+  \item Theories of active glass transition for AOUPs focus on low $\tau_p$.
   \item Evidence for lare scale velocity correlations in the active liquid.
 \end{itemize}
 
@@ -58,7 +58,7 @@
 \centering
 \includegraphics[width=0.45\textwidth]{No4096_Fl1000_Vl0000_Tl1000_Ri5000_Dk5000_EL3000.velo.eps}
 \includegraphics[width=0.45\textwidth]{No4096_Fl1000_Vl0000_Tl1000_Ri5000_Dk5000_El2000.velo.eps}
-\caption{Velocity maps of AOUPs at packing fraction $\phi = 0.50$ and persistence time $D_r^{-1} = 200$, with polydispersity index {\bf (left)} $I = 0$ {\bf (right)} $I = 0.2$.}
+\caption{Velocity maps of AOUPs at packing fraction $\phi = 0.50$ and persistence time $\tau_p = 200$, with polydispersity index {\bf (left)} $I = 0$ {\bf (right)} $I = 0.2$.}
 \end{figure}
 
 \footfullcitenomark{martin2020statistical}
@@ -95,38 +95,33 @@ and we fix $I = 0.2$ from a uniform distribution.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.45\textwidth]{Deff.eps}
-\includegraphics[width=0.45\textwidth]{DeffV2.eps}
-\caption{ Effective diffusion constant $D_{\mathrm{eff}} = \lim_{\Delta t \to \infty} \left<|\Delta\boldsymbol{r}_i(t, t + \Delta t)|^2\right>_{i, t}/4\Delta t$ and ratio with kinetic energy $\left<\sum_{i=1}^N |\boldsymbol{v}_i(t)|^2/N\right>_t$.}
+\includegraphics[width=0.55\textwidth]{Deff.eps}
+% \includegraphics[width=0.45\textwidth]{DeffV2.eps}
+\caption{Effective diffusion constant $D_{\mathrm{eff}} = \lim_{\Delta t \to \infty} \left<|\Delta\boldsymbol{r}_i(t, t + \Delta t)|^2\right>_{i, t}/4\Delta t$.}
 \end{figure}
+
+\begin{itemize}
+  \item Dramatic decrease of $D_{\rm eff}$ for small variations of $\phi$ near dynamical arrest.
+\end{itemize}
 
 \footfullcitenomark{janssen2019active}
 
 \end{frame}
 
-\begin{frame}{Pair distribution function}
+\begin{frame}{Mean squared displacement}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.35\textwidth]{g_No1024_Tl1000_Rj1000.eps}
-\includegraphics[width=0.35\textwidth]{S_No1024_Tl1000_Rj1000.eps}\\
-\includegraphics[width=0.35\textwidth]{g_No1024_Tl1000_Rn1000.eps}
-\includegraphics[width=0.35\textwidth]{S_No1024_Tl1000_Rn1000.eps}
-\caption{{\bf (left)} Diameter-relative pair distribution function $g_{\sigma}$ and {\bf(right)} structure factor $S(k) = \left<|\rho_{\boldsymbol{k}}|^2\right>$, at {\bf (top)} $\tau_p = 10^2$ and {\bf (bottom)} $\tau_p = 10^{-2}$.}
+\includegraphics[width=0.45\textwidth]{msdv2_No1024_Tl1000_Rn1000.eps}
+% \includegraphics[width=0.35\textwidth]{Fs_No1024_Tl1000_Rn1000.eps}\\
+\includegraphics[width=0.45\textwidth]{msdv2_No1024_Tl1000_Rj1000.eps}
+% \includegraphics[width=0.35\textwidth]{Fs_No1024_Tl1000_Rj1000.eps}
+\caption{Mean squared displacement rescaled by mean squared velocity at {\bf (left)} $\tau_p = 10^{-2}$ and {\bf (right)} $\tau_p = 10^2$.}
 \end{figure}
 
-\end{frame}
-
-\begin{frame}{MSD and scattering function}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.35\textwidth]{msdv2_No1024_Tl1000_Rj1000.eps}
-\includegraphics[width=0.35\textwidth]{Fs_No1024_Tl1000_Rj1000.eps}\\
-\includegraphics[width=0.35\textwidth]{msdv2_No1024_Tl1000_Rn1000.eps}
-\includegraphics[width=0.35\textwidth]{Fs_No1024_Tl1000_Rn1000.eps}
-\caption{{\bf (left)} Mean squared displacement rescaled by mean squared velocity and {\bf (right)} self-intermediate scattering function, at {\bf (top)} $\tau_p = 10^2$ and {\bf (bottom)} $\tau_p = 10^{-2}$.}
-\end{figure}
+\begin{itemize}
+  \item Significant deviation from the ballistic regime at high $\tau_p$ and smoother plateau than at low $\tau_p$.
+\end{itemize}
 
 \end{frame}
 
@@ -139,10 +134,14 @@ and we fix $I = 0.2$ from a uniform distribution.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.45\textwidth]{No1024_Fl1000_Vl0000_Tl1000_Rj1000_Dk8775_El0000.datN.overlap.eps}
 \includegraphics[width=0.45\textwidth]{No1024_Fl1000_Vl0000_Tl1000_Rn1000_Dl1055_El0000.datN.overlap.eps}
-\caption{Overlap susceptibility $\chi$ at {\bf (left)} $\tau_p = 10^2$ and {\bf (right)} $\tau_p = 10^{-2}$.}
+\includegraphics[width=0.45\textwidth]{No1024_Fl1000_Vl0000_Tl1000_Rj1000_Dk8775_El0000.datN.overlap.eps}
+\caption{Overlap susceptibility $\chi$ at {\bf (left)} $\tau_p = 10^{-2}$ and {\bf (right)} $\tau_p = 10^2$.}
 \end{figure}
+
+\begin{itemize}
+  \item Large dynamical heterogeneities at time scales significantly lower than relaxation time for high $\tau_p$.
+\end{itemize}
 
 \end{frame}
 
@@ -152,25 +151,46 @@ and we fix $I = 0.2$ from a uniform distribution.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.49\textwidth]{No4096_Fl1000_Vl0000_Tl1000_Rj1000_Dk8600_El0000.velo.eps}
 \includegraphics[width=0.49\textwidth]{No4096_Fl1000_Vl0000_Tl1000_Rn1000_Dl1020_El0000.velo.eps}
-\caption{Velocity maps at {\bf (left)} $\tau_p = 10^2$ and {\bf (right)} $\tau_p = 10^{-2}$.}
+\includegraphics[width=0.49\textwidth]{No4096_Fl1000_Vl0000_Tl1000_Rj1000_Dk8600_El0000.velo.eps}
+\caption{Velocity maps at {\bf (left)} $\tau_p = 10^{-2}$ and {\bf (right)} $\tau_p = 10^2$.}
 \end{figure}
+
+\begin{itemize}
+  \item Large $\tau_p$ associated with multiparticle scale velocity correlations.
+\end{itemize}
 
 \footfullcitenomark{caprini2020hidden}
 
 \end{frame}
 
-\begin{frame}{Velocity correlations}
+\begin{frame}{Velocity radial correlations}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.35\textwidth]{cvvCMlog_No1024_Tl1000_Rj1000.eps}
-\includegraphics[width=0.35\textwidth]{cvvtCM_No1024_Tl1000_Rj1000.eps}\\
-\includegraphics[width=0.35\textwidth]{cvvCMlog_No1024_Tl1000_Rn1000.eps}
-\includegraphics[width=0.35\textwidth]{cvvtCM_No1024_Tl1000_Rn1000.eps}
-\caption{Velocity autocorrelation function in {\bf (left)} space {\bf (right)} time at {\bf (top)} $\tau_p = 10^2$ and {\bf (bottom)} $\tau_p = 10^{-2}$.}
+\includegraphics[width=0.45\textwidth]{cvvCMlog_No1024_Tl1000_Rn1000.eps}
+\includegraphics[width=0.45\textwidth]{cvvCMlog_No1024_Tl1000_Rj1000.eps}
+\caption{Velocity radial autocorrelation function at {\bf (left)} $\tau_p = 10^{-2}$ and {\bf (right)} $\tau_p = 10^2$.}
 \end{figure}
+
+\begin{itemize}
+  \item Velocity correlation length increases with both $\tau_p$ and $\phi$.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Velocity temporal correlations}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.45\textwidth]{cvvtCM_No1024_Tl1000_Rn1000.eps}
+\includegraphics[width=0.45\textwidth]{cvvtCM_No1024_Tl1000_Rj1000.eps}
+\caption{Velocity temporal autocorrelation function at {\bf (left)} $\tau_p = 10^{-2}$ and {\bf (right)} $\tau_p = 10^2$.}
+\end{figure}
+
+\begin{itemize}
+  \item Velocity correlation time decreases with $\phi$ but remains approximately of the order of $\tau_p$.
+\end{itemize}
 
 \end{frame}
 
@@ -178,14 +198,18 @@ and we fix $I = 0.2$ from a uniform distribution.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.35\textwidth]{No1024_Fl1000_Vl0000_Tl1000_Rj1000.pvx.eps}
-\includegraphics[width=0.35\textwidth]{No1024_Fl1000_Vl0000_Tl1000_Rj1000.pv2.eps}\\
-\includegraphics[width=0.35\textwidth]{No1024_Fl1000_Vl0000_Tl1000_Rn1000.pvx.eps}
-\includegraphics[width=0.35\textwidth]{No1024_Fl1000_Vl0000_Tl1000_Rn1000.pv2.eps}
-\caption{Distributions of {\bf (left)} $\boldsymbol{v}\cdot\boldsymbol{e}_x$ and {\bf (right)} $|\boldsymbol{v}|^2$ at {\bf (top)} $\tau_p = 10^2$ and {\bf (bottom)} $\tau_p = 10^{-2}$.}
+% \includegraphics[width=0.35\textwidth]{No1024_Fl1000_Vl0000_Tl1000_Rn1000.pvx.eps}
+\includegraphics[width=0.45\textwidth]{No1024_Fl1000_Vl0000_Tl1000_Rn1000.pv2.eps}
+% \includegraphics[width=0.35\textwidth]{No1024_Fl1000_Vl0000_Tl1000_Rj1000.pvx.eps}
+\includegraphics[width=0.45\textwidth]{No1024_Fl1000_Vl0000_Tl1000_Rj1000.pv2.eps}
+\caption{Distributions of $|\boldsymbol{v}|^2$ at {\bf (left)} $\tau_p = 10^{-2}$ and {\bf (right)} $\tau_p = 10^2$.}
 \end{figure}
 
-\vspace{-10pt}
+\begin{itemize}
+  \item At low $\tau_p$, the distribution of $|\boldsymbol{v}|^2$ remains approximately Gaussian, and $|\boldsymbol{v}|^2 = \mathcal{O}(D D_r)$ the injected energy.
+  \item At high $\tau_p$, $|\boldsymbol{v}|^2$ distribution has a fat tail and $|\boldsymbol{v}|^2 \ll \mathcal{O}(D D_r)$ indicating $-\nabla_i U_{\rm WCA} \approx -\boldsymbol{p}_i$.
+\end{itemize}
+
 \footfullcitenomark{caprini2020active}
 
 \end{frame}
@@ -194,17 +218,80 @@ and we fix $I = 0.2$ from a uniform distribution.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.45\textwidth]{No1024_Fl1000_Vl0000_Tl1000_Rj1000.ecC.eps}
 \includegraphics[width=0.45\textwidth]{No1024_Fl1000_Vl0000_Tl1000_Rl1000.ecC.eps}
-\caption{Time series of kinetic energy at {\bf (top)} $\tau_p = 10^2$ and {\bf (bottom)} $\tau_p = 10^0$.}
+\includegraphics[width=0.45\textwidth]{No1024_Fl1000_Vl0000_Tl1000_Rj1000.ecC.eps}
+\caption{Time series of kinetic energy at {\bf (left)} $\tau_p = 10^0$ and {\bf (right)} $\tau_p = 10^2$.}
 \end{figure}
+
+\begin{itemize}
+  \item At high $\tau_p$ and $\phi$, $|\boldsymbol{v}|^2$ is intermittent signaling plastic yielding events between force-balanced $(\boldsymbol{r}_i, \boldsymbol{p}_i)$ configurations.
+\end{itemize}
 
 \footfullcitenomark{mandal2020extreme}
 \footfullcitenomark{caprini2020active}
 
 \end{frame}
 
-\begin{frame}{Swim velocity}
+\section{Outlook}
+
+\begin{frame}{Tentative phase diagram}
+
+\begin{figure}
+\centering
+\includegraphics[height=4cm]{mandal2020_fig1a.png}
+\includestandalone[height=4cm]{diagram}
+\caption{{\bf (left)} Phase diagram for ABPs at fixed $\phi$ with $f \sim \sqrt{D D_r}$ \FigureFrom{mandal2020extreme}{1(a)}. {\bf (right)} Provisional phase diagram for AOUPs at fixed $D$.}
+\end{figure}
+
+At fixed D,
+\begin{itemize}
+  \item the system is equilibrium-like for $l_p$ smaller than cage size,
+  \item large cooperative motion is possible at intermediate $\phi$ and $\tau_p$ but is hindered by increasing $\phi$ or $\tau_p$ leading to force-balanced states.
+\end{itemize}
+
+\end{frame}
+
+{
+\footerwithoutframenumber
+
+\begin{frame}[noframenumbering]{Theoretical velocity correlations}
+
+\begin{figure}
+\centering
+\includegraphics[height=2.75cm]{henkes2020_fig1a.png}
+\includegraphics[height=2.75cm]{henkes_natcomm_2020_eq11.eps}
+\includegraphics[height=2.75cm]{henkes_natcomm_2020_eq62.eps}\\
+\includegraphics[height=2.75cm]{henkes_natcomm_2020_eq57.eps}
+\includegraphics[height=2.75cm]{henkes_natcomm_2020_eq57_msd.eps}
+\caption{{\bf (top left)} Active elastic theory \FigureFrom{henkes2020dense}{1(a)}. {\bf (top centre)} Mean squared velocity. {\bf (top right)} Radial autocorrelation function of velocity. {\bf (bottom left)} Temporal autocorrelation of velocity. {\bf (bottom right)} Mean squared displacement.}
+\end{figure}
+
+\vspace{-10pt}
+\footfullcitenomark{szamel2021long}
+
+\end{frame}
+
+\begin{frame}[noframenumbering]{Pair distribution function}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.45\textwidth]{g_No1024_Tl1000_Rn1000.eps}
+% \includegraphics[width=0.35\textwidth]{S_No1024_Tl1000_Rn1000.eps}\\
+\includegraphics[width=0.45\textwidth]{g_No1024_Tl1000_Rj1000.eps}
+% \includegraphics[width=0.35\textwidth]{S_No1024_Tl1000_Rj1000.eps}
+\caption{Diameter-relative pair distribution function $g_{\sigma}$ at {\bf (left)} $\tau_p=10^{-2}$ and {\bf (right)} $\tau_p = 10^2$.}
+\end{figure}
+
+\begin{itemize}
+  \item Increasing effective radius of particles with increasing $\tau_p$, consistent with decreasing $D_{\rm eff}$.
+  \item Sharpening and growth of the first peak (increasing adhesion) is a general feature of self-propelled particles.
+\end{itemize}
+
+\footfullcitenomark{berthier2017active}
+
+\end{frame}
+
+\begin{frame}[noframenumbering]{Swim velocity}
 
 \begin{equation}
 v(\rho)/\left<|\boldsymbol{p}_i|\right> = 1 + \left<-\nabla_i U \cdot \boldsymbol{p}_i/|\boldsymbol{p}_i|\right>
@@ -224,34 +311,6 @@ v(\rho)/\left<|\boldsymbol{p}_i|\right> = 1 + \left<-\nabla_i U \cdot \boldsymbo
 
 \end{frame}
 
-\section{Outlook}
-
-\begin{frame}{Tentative phase diagram}
-
-\begin{figure}
-\centering
-\includegraphics[height=4cm]{mandal2020_fig1a.png}
-\includestandalone[height=4cm]{diagram}
-\caption{{\bf (left)} Phase diagram for ABPs at fixed $\phi$ \FigureFrom{mandal2020extreme}{1(a)}. {\bf (right)} Provisional phase diagram for AOUPs at fixed $D$.}
-\end{figure}
-
-\end{frame}
-
-\begin{frame}{Theoretical velocity correlations}
-
-\begin{figure}
-\centering
-\includegraphics[height=2.75cm]{henkes2020_fig1a.png}
-\includegraphics[height=2.75cm]{henkes_natcomm_2020_eq11.eps}
-\includegraphics[height=2.75cm]{henkes_natcomm_2020_eq62.eps}\\
-\includegraphics[height=2.75cm]{henkes_natcomm_2020_eq57.eps}
-\includegraphics[height=2.75cm]{henkes_natcomm_2020_eq57_msd.eps}
-\caption{{\bf (top left)} Active elastic theory \FigureFrom{henkes2020dense}{1(a)}. {\bf (top centre)} Mean squared velocity. {\bf (top right)} Radial autocorrelation function of velocity. {\bf (bottom left)} Temporal autocorrelation of velocity. {\bf (bottom right)} Mean squared displacement.}
-\end{figure}
-
-\vspace{-10pt}
-\footfullcitenomark{szamel2021long}
-
-\end{frame}
+}
 
 \end{document}
