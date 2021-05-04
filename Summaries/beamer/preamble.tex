@@ -2,6 +2,7 @@
 
 %%%%% PACKAGES
 
+\usepackage[mode=buildnew,subpreambles=true]{standalone}
 \usepackage{graphicx} % figures
 \usepackage{multimedia} % videos
 \usepackage{url}
@@ -24,8 +25,12 @@
 \usepackage{xcolor,colortbl}
 \usepackage{fontawesome}
 \usepackage{tabularx}
+\usepackage{cancel}
+\usepackage{calc}
+\usepackage{mdwlist}
+\usepackage{xpatch}
 
-\usepackage{biblatex}
+\usepackage[style=phys]{biblatex}
 \addbibresource{ref.bib}
 
 %%%%% BEAMER TEMPLATE
@@ -44,6 +49,15 @@
 \setbeamersize{text margin left=3mm,text margin right=3mm}
 
 \captionsetup{font=scriptsize,labelfont={scriptsize, color=CaPink, bf}}
+
+\AtEveryCitekey{\ifentrytype{article}{\clearfield{title}}{}}
+\xpatchbibmacro{name:andothers}{%
+  \bibstring{andothers}%
+}{%
+  \bibstring[\emph]{andothers}%
+}{}{}
+\setbeamercolor{bibliography entry author}{fg = black}
+\ExecuteBibliographyOptions{doi=false}
 
 % decrease space around math align environment
 \newcommand{\zerodisplayskips}{%
@@ -119,11 +133,11 @@
 % }
 
 \makeatletter
-\let\insertsupervisor\relax
-\newcommand\supervisortitle{supervised by}
+\let\insertcollaborator\relax
+\newcommand\collaboratortitle{in collaboration with}
 \mode<all>
 {
-  \newcommand\supervisor[1]{\def\insertsupervisor{#1}}
+  \newcommand\collaborator[1]{\def\insertcollaborator{#1}}
   \titlegraphic{}
 }
 \let\insertlocation\relax
@@ -162,7 +176,7 @@
     \ifx\insertlocation\relax\relax\else
     \vspace{-10pt}
     \begin{beamercolorbox}[sep=8pt,center,#1]{author}
-      \usebeamerfont{author}{\footnotesize \supervisortitle}~{\small\insertsupervisor}
+      \usebeamerfont{author}{\footnotesize \collaboratortitle}~{\small\insertcollaborator}
     \end{beamercolorbox}\fi
     \vspace{-5pt}
     \ifx\insertlocation\relax\relax\else
@@ -183,6 +197,15 @@
 \newlength\beamerleftmargin
 \setlength\beamerleftmargin{\Gm@lmargin}
 \makeatother
+
+%%%%% CUSTOM COLOURS
+
+% colorblind accessible palette ("red", "green", "blue", "yellow") contrasting with pink (#E85E8A)
+% https://davidmathlogic.com/colorblind/#%23000000-%23E85E8A-%23CC78BC-%23D55E00-%230173B2-%23ECE133
+\definecolor{red}{HTML}{CC78BC} % purple (#CC78BC)
+\definecolor{green}{HTML}{029E73} % orange (#D55E00)
+\definecolor{blue}{HTML}{0173B2} % blue (#0173B2)
+\definecolor{yellow}{HTML}{ECE133} % yellow (#ECE133)
 
 %%%%% MACROS
 
@@ -228,6 +251,18 @@
   \endgroup
 }
 
+\providecommand\toc{
+  {\footerwithoutframenumber
+  \begin{frame}<beamer>[noframenumbering]{Contents}
+    \tableofcontents
+  \end{frame}
+  }
+}
+
 % \makeatletter
 % \providecommand{\xRightarrow}[2][]{\ext@arrow 0359\Rightarrowfill@{#1}{#2}}
 % \makeatother
+
+% https://tex.stackexchange.com/questions/199218
+\usetikzlibrary{arrows,shapes}
+\newcommand{\tikzmark}[2]{\tikz[baseline,remember picture]{\node[anchor=base] (#1){#2};}}
