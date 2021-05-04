@@ -480,6 +480,8 @@ Error message and password prompt
 
 <li>AOUP velocity autocorrelations</li>
 
+<li>Confined AOUP</li>
+
 <li>CustomStylesheet</li>
 
 <li>Field correlation</li>
@@ -9974,7 +9976,7 @@ config.macros.bibliography = {
 <div created="20180606020526389" modified="20180606020526389" title="$:/state/toc/TableOfContents/Measurements/Strain and vorticity fields-Strain correlations--81657105">
 <pre>open</pre>
 </div>
-<div list="Summaries Project" title="$:/StoryList">
+<div list="[[Active Ornstein-Uhlenbeck particles]] Project" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20190725184303281" modified="20190727111023175" title="$:/temp/advancedsearch">
@@ -10820,7 +10822,7 @@ This plugin also requires the JSZip plugin ([[$:/plugins/tiddlywiki/jszip]]) to 
 <div created="20190727110537306" modified="20190727110548195" title="$:/themes/tiddlywiki/vanilla/settings/fontfamily">
 <pre>&quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Lucida Grande&quot;, &quot;DejaVu Sans&quot;, sans-serif</pre>
 </div>
-<div created="20200825155432570" modified="20210125145643264" tags="TableOfContents" title="Active Ornstein-Uhlenbeck particles">
+<div created="20200825155432570" modified="20210504205906466" tags="TableOfContents" title="Active Ornstein-Uhlenbeck particles">
 <pre>We define active Ornstein-Uhlenbeck particles ([[Bonilla, 2019|https://doi.org/10.1103/PhysRevE.100.022601]], [[Fodor et al., 2016|https://doi.org/10.1103/PhysRevLett.117.038103]]).
 
 We refer to ([[yketa/DAMTP_MSC_2019_Wiki#Active Brownian particles|https://yketa.github.io/DAMTP_MSC_2019_Wiki/#Active%20Brownian%20particles]]) for definitions of the polarisation order parameter and the active work.
@@ -10834,8 +10836,8 @@ We refer to ([[yketa/DAMTP_MSC_2019_Wiki#Active Brownian particles|https://yketa
 With $$\underline{r}_i$$ and $$\underline{p}_i$$ the position and self-propulsion vector of particle $$i$$ ($$i \in \{1,\ldots,N\}$$), we have the equations of motion of AOUPs
 $$
 \begin{aligned}
-\dot{\underline{r}}_i &amp;= \mu \left[- \nabla_i V + \underline{p}_i\right],\\
-\dot{\underline{p}}_i &amp;= - D_r \underline{p}_i + \sqrt{\frac{2 \, D_r^2 \, D}{\mu^2}} \, \underline{\eta}_i,
+\dot{\underline{r}}_i &amp;= - \mu \nabla_i V + \underline{p}_i,\\
+\dot{\underline{p}}_i &amp;= - D_r \underline{p}_i + \sqrt{2 \, D_r^2 \, D} \, \underline{\eta}_i,
 \end{aligned}
 $$
 where $$\underline{\eta}_i$$ is a zero-mean unit-variance Gaussian white noise, //i.e.// $$\left&lt;\eta_i^{\alpha}(t) \, \eta_j^{\beta}(t^{\prime})\right&gt; = \delta_{\alpha\beta} \delta_{ij} \delta(t - t^{\prime})$$, $$\mu$$ is the mobility, $$D_r$$ is the rotational diffusivity, and $$D$$ is the translational diffusivity.
@@ -10892,7 +10894,7 @@ $$
 | !Units |&lt;|
 | distance | $$\bar{\sigma} = 1$$ |
 | energy | $$\varepsilon = 1$$ |
-| time | $$\bar{\sigma}/\mu\varepsilon = 1$$ |
+| time | $$\bar{\sigma}^2/\mu\varepsilon = 1$$ |
 
 $$
 \begin{aligned}
@@ -11104,6 +11106,23 @@ where $$\Delta r = |\Delta\underline{r}|$$ and $$K_0$$ is the $$0$$-th modified 
     &lt;/a&gt;
 &lt;/div&gt;</pre>
 </div>
+<div created="20210324103548576" modified="20210324111804155" tags="[[Active Ornstein-Uhlenbeck particles]]" title="Confined AOUP">
+<pre>In order to confine particles in the $$\underline{e}_y$$-direction, we introduce a confining lenght $$L_c$$ and add to the interaction potential a confining potential
+$$
+\begin{aligned}
+U_{\mathrm{WCA, Wall}} &amp;= \sum_{i=1}^N \left[4 \left(\frac{1}{(2 y_i/\sigma_i)^{12}} - \frac{1}{(2 y_i/\sigma_i)^6}\right) + 1\right] \Theta(2^{-5/6} - y_i/\sigma_i)\\
+&amp;\quad +  \sum_{i=1}^N \left[4 \left(\frac{1}{(2 (L_c - y_i)/\sigma_i)^{12}} - \frac{1}{(2 (L_c - y_i)/\sigma_i)^6}\right) + 1\right] \Theta(2^{-5/6} - (L_c - y_i)/\sigma_i)
+\end{aligned}
+$$
+where $$\Theta$$ stands for the Heaviside function, such that the force exerted on particle $$i$$ is
+$$
+\begin{aligned}
+\underline{F}_{\mathrm{WCA, Wall}, i} &amp;= - \varepsilon \nabla_i U_{\mathrm{WCA, Wall}}\\
+&amp;= \varepsilon \sum_{i=1}^N \frac{1}{\sigma_i}\left(\frac{96}{(2 y_i/\sigma_i)^{13}} - \frac{48}{(2y_i/\sigma_i)^{7}}\right) \underline{e}_y \Theta(2^{-5/6} - y_i/\sigma_i)\\
+&amp;\quad - \varepsilon \sum_{i=1}^N \frac{1}{\sigma_i}\left(\frac{96}{(2 (L_c - y_i)/\sigma_i)^{13}} - \frac{48}{(2 (L_c - y_i)/\sigma_i)^{7}}\right) \underline{e}_y \Theta(2^{-5/6} - (L_c - y_i)/\sigma_i).
+\end{aligned}
+$$</pre>
+</div>
 <div created="20190812151828852" modified="20200102165742809" tags="$:/tags/Stylesheet" title="CustomStylesheet">
 <pre>/* TABLES */
 /* header background */
@@ -11199,7 +11218,7 @@ C_{\underline{u}\underline{u}}(\Delta r) = \left&lt;\frac{\left&lt;\underline{u}
 $$
 the scaled radial autocorrelation function of $$\underline{u}$$ averaged over time.</pre>
 </div>
-<div created="20200910092131603" modified="20210120121911724" tags="TableOfContents" title="Flow characteristics">
+<div created="20200910092131603" modified="20210322214127378" tags="TableOfContents" title="Flow characteristics">
 <pre>&lt;&lt;compuscript &quot;flow.py&quot;&gt;&gt;
 
 ! Dynamical heterogeneities
@@ -11404,6 +11423,36 @@ $$
 $$
 which relation enables faster computation.
 
+It is common to indroduce the structural relaxation time $$\tau_{\alpha}(k)$$ such that
+$$
+F_s(k, \tau_{\alpha}(k)) = e^{-1}
+$$
+at fixed $$k$$.
+
+A free [[Ornstein-Uhlenbeck particle|One AOUP]] has a zero-mean Gaussian distribution of displacement, therefore we have the free particle self-intermediate scattering function
+$$
+F_s^{\mathrm{free}}(k, \Delta t) = \left&lt;\exp(-\mathrm{i} \underline{k} \cdot \Delta\underline{r}(t, t + \Delta t)\right&gt;_{t, |\underline{k}|=k} = \exp\left(-\frac{1}{2} k^2 \left&lt;|\Delta \underline{r}(\Delta t)|^2\right&gt;\right)
+$$
+so we can compute the free particle structural relaxation time $$\tau^{\mathrm{free}}_{\alpha}(k)$$ by solving
+$$
+2 k^2 D\left(\tau^{\mathrm{free}}_{\alpha}(k) + D_r^{-1}\left(\exp\left(-D_r \tau^{\mathrm{free}}_{\alpha}(k)\right) -
+ 1\right)\right) = 1
+$$
+and therefore
+$$
+\tau^{\mathrm{free}}_{\alpha} (k) = \frac{D_r + 2 D k^2\left(1 + \mathbb{W}\left(-\exp\left(-1 -
+\frac{D_r}{2 D k^2}\right)\right)\right)}{2 D D_r k^2}
+$$
+where $$\mathbb{W}$$ is the [[principal branch Lambert W function|https://en.wikipedia.org/wiki/Lambert_W_function]]. In the limit $$l_p^2 \ll k^{-2}$$, the movement is diffusive on the scale of $$k^{-1}$$ and we have
+$$
+\tau^{\mathrm{free}}_{\alpha}(k) \propto D^{-1} k^{-2}
+$$
+whereas in the limit $$l_p^2 \gg k^{-2}$$, the movement is balistic on the scale of $$k^{-1}$$ and we have
+$$
+\tau^{\mathrm{free}}_{\alpha}(k) \propto v_0^{-1} k^{-1}
+$$
+which is then a function of the persistence time.
+
 ! van Hove function
 
 It is also useful to consider the van Hove function ([[Hansen and McDonald, 2006|https://www.elsevier.com/books/theory-of-simple-liquids/hansen/978-0-12-370535-8]] § 7.4, [[Kob and Andersen, 1995|https://doi.org/10.1103/PhysRevE.51.4626]])
@@ -11440,7 +11489,13 @@ G_s(\Delta\underline{r}, \Delta t) &amp;= \frac{1}{N} \left&lt;\sum_{i=1}^N \del
 G_d(\Delta\underline{r}, \Delta t) &amp;= \frac{1}{N} \left&lt;\sum_{i=1}^N \sum_{j \neq i} \delta(\Delta\underline{r} - [\underline{r}_j(t) - \underline{r}_i(t) + \Delta \underline{r}_j(t, t + \Delta t)])\right&gt;_t
 \end{aligned}
 $$
-where $$G_s$$ then corresponds to the distribution of displacements, and we note that $$G_s(\underline{r}, 0) = \delta(\underline{r})$$, $$G_d(\underline{r}, 0) = \rho g(\underline{r})$$, and $$G_s(\Delta \underline{r}, \Delta t \to \infty) = 1/V$$. Moreover, at any $$\Delta t$$
+where $$G_s$$ then corresponds to the distribution of displacements, and we note that $$G_s(\underline{r}, 0) = \delta(\underline{r})$$, $$G_d(\underline{r}, 0) = \rho g(\underline{r})$$. Moreover, in the diffusive regime at large $$\Delta t$$, we have ([[Kob and Andersen, 1995|https://doi.org/10.1103/PhysRevE.51.4626]])
+$$
+G_s(\Delta \underline{r}, \Delta t) \sim \frac{1}{4\pi D_{\mathrm{eff}} \Delta t} \exp\left(-\frac{|\Delta\underline{r}|^2}{4 D_{\mathrm{eff}} \Delta t}\right),~ \Delta t \to \infty
+$$
+and, in the $$\Delta t \to \infty$$ limit where the van Hove function becomes independent of $$\Delta \underline{r}$$, $$G_s(\Delta \underline{r}, \Delta t \to \infty) = 1/V$$ ([[Hansen and McDonald, 2006|https://www.elsevier.com/books/theory-of-simple-liquids/hansen/978-0-12-370535-8]] § 7.4).
+
+At any $$\Delta t$$
 $$
 \int \mathrm{d}\underline{r} \, G(\underline{r}, t) = N
 $$
@@ -11455,7 +11510,11 @@ G(\Delta r, \Delta t) &amp;= \frac{1}{2 \pi \Delta r} \, \frac{1}{N} \left&lt;\s
 &amp;= \frac{1}{2 \pi} \int \mathrm{d}\theta \, G(\Delta\underline{r} \equiv (\Delta r, \theta), \Delta t)
 \end{aligned}
 $$
-which would then be written $$G(\Delta r, \Delta t) = G(\Delta \underline{r}, \Delta t)$$ from isotropy.
+which would then be written $$G(\Delta r, \Delta t) = 2 \pi \Delta r G(\Delta \underline{r}, \Delta t)$$ from isotropy, and the distribution of $$\log$$-displacement ([[Flenner and Szamel, 2005|https://doi.org/10.1103/PhysRevE.72.011205]], [[Berthier et al., 2019|https://doi.org/10.1063/1.5093240]])
+$$
+\frac{1}{N} \left&lt;\sum_{i=1}^N \delta\left(\log_{10}\Delta r - \log_{10}|\Delta \underline{r}_i(t, t + \Delta t)|\right)\right&gt; = 2 \pi \ln(10) \, \Delta r^2 G_s(\Delta\underline{r}, \Delta t)
+$$
+to inspect the Gaussian character of the single-particle displacements.
 
 ! Bond-breakage
 
@@ -11506,11 +11565,11 @@ will give us information about local plastic events.
 
 In systems of ABPs, with propulsion at constant speed $$v_0$$ along directions $$\underline{e}_i$$ ($$|\underline{e}_i|=1$$), swim velocity
 $$
-v_{\mathrm{ABP}}(\rho) = \left&lt;\dot{\underline{r}}_i \cdot \underline{e}_i\right&gt;_{i,t} = v_0 + \left&lt;-\nabla_i U \cdot \underline{e}_i\right&gt;_{i,t}
+v_{\mathrm{ABP}}(\phi) = \left&lt;\dot{\underline{r}}_i \cdot \underline{e}_i\right&gt;_{i,t} = v_0 + \left&lt;-\nabla_i U \cdot \underline{e}_i\right&gt;_{i,t}
 $$
 has been introduced as the average velocity in the direction of self-propulsion and has been used in thermodynamic descriptions of these systems ([[Solon et al., 2015|https://doi.org/10.1103/PhysRevLett.114.198301]], [[Arnoulx de Pirey et al., 2019|https://doi.org/10.1103/PhysRevLett.123.260602]], [[Reichert et al., 2020|https://arxiv.org/abs/2012.07466]]). We introduce a similar quantity for our AOUPs
 $$
-v(\rho) = \left&lt;\dot{\underline{r}}_i \cdot \hat{\underline{p}}_i\right&gt;_{i,t} = \left&lt;\underline{p}_i \cdot \hat{\underline{p}}_i\right&gt;_{i,t} + \left&lt;-\nabla_i U \cdot \hat{\underline{p}}_i\right&gt;_{i,t} = \sqrt{\frac{\pi D D_r}{2}} + \left&lt;-\nabla_i U \cdot \hat{\underline{p}}_i\right&gt;_{i,t}
+v(\phi) = \left&lt;\dot{\underline{r}}_i \cdot \hat{\underline{p}}_i\right&gt;_{i,t} = \left&lt;\underline{p}_i \cdot \hat{\underline{p}}_i\right&gt;_{i,t} + \left&lt;-\nabla_i U \cdot \hat{\underline{p}}_i\right&gt;_{i,t} = \sqrt{\frac{\pi D D_r}{2}} + \left&lt;-\nabla_i U \cdot \hat{\underline{p}}_i\right&gt;_{i,t}
 $$
 where $$\hat{\underline{p}}_i = \underline{p}_i/|\underline{p}_i|$$, while stressing that in our case the amplitude of self-propulsion is not constant.</pre>
 </div>
